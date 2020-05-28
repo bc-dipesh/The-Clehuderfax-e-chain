@@ -1,0 +1,138 @@
+/**********************
+Product-details styling
+**********************/
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-detail-nav {
+    display: block;
+    margin: 2em 0;
+}
+
+.prod-detail-nav-link {
+    padding: 0;
+}
+
+.prod-detail-top {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 2em;
+    border-bottom: 1px solid lightgray;
+}
+
+.prod-detail .left {
+    width: 30%;
+}
+
+.prod-detail .right {
+    width: 65%;
+}
+
+.description {
+    border-bottom: 1px solid lightgray;
+}
+
+.order-and-cart {
+    display: flex;
+}
+
+.counter {
+    display: flex;
+    margin: 1em 0;
+}
+
+.counter-btn {
+    background-color: white;
+}
+
+.counter-btn:focus {
+    outline: 0;
+}
+
+.alert {
+    margin-left: 3em;
+}
+
+.cart-btn {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+
+.cart-btn:hover {
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 1px solid #333333;
+}
+
+.category h5 {
+    text-transform: uppercase;
+    display: inline;
+    font-weight: 800;
+}
+
+.prod_category {
+    text-transform: capitalize !important;
+}
+
+.prod-desc-review {
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-desc-review .heading-list {
+    padding-top: 2em;
+    display: flex;
+    width: 35%;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.heading-item {
+    list-style-type: none;
+}
+
+.head-link {
+    cursor: pointer;
+    text-transform: capitalize;
+    font-size: 2em;
+    color: #333333;
+}
+
+.content {
+    margin: 0 auto;
+    padding-top: 2em;
+    width: 80%;
+    text-align: center;
+}
+
+
+/* responsive */
+
+@media screen and (min-width: 360px) and (max-width: 970px) {
+    .prod-detail-top {
+        flex-direction: column;
+    }
+
+    .prod-detail .left {
+        width: 100%;
+        order: -1;
+    }
+
+    .prod-detail .right {
+        width: 100%;
+    }
+
+    .prod-desc-review .heading-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        padding: 0;
+    }
+
+    .content {
+        width: 100%;
+    }
+}

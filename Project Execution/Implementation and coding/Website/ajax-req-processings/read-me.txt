@@ -1,0 +1,1 @@
+This directory holds all the .php files that handles ajax-request.

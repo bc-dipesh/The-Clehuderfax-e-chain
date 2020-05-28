@@ -1,0 +1,51 @@
+/***************
+About-Us styles
+***************/
+
+.about-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.about-heading>h1 {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-content>img {
+    width: 50%;
+}
+
+.about-content .about-text h3 {
+    text-transform: uppercase;
+}
+
+.about-content .about-text {
+    width: 40%;
+    text-align: justify;
+}
+
+
+/* responsive */
+
+@media screen and (min-width: 360px) and (max-width: 767px) {
+    .shop-nav-link {
+        padding: 0;
+    }
+    .about-content {
+        flex-direction: column;
+    }
+    .about-content>img {
+        width: 100%;
+    }
+    .about-content .about-text {
+        width: 100%;
+    }
+}

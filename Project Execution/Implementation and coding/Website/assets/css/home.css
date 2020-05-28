@@ -1,0 +1,157 @@
+/* figure */
+.carousel {
+  /* position: relative; */
+  height: 70%;
+}
+
+.figcaption {
+  font-family: "Aguafina Script";
+  top: 40%;
+  font-size: 3em;
+  color: #ffffff;
+}
+
+/* responsive */
+@media screen and (min-width: 360px) and (max-width: 975px) {
+
+  .carousel {
+    height: 50%;
+  }
+
+  .figcaption {
+    font-size: 2em;
+  }
+
+  .buttons {
+    margin-top: 3em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    padding: 0.8em;
+    font-size: 1em;
+  }
+}
+
+/* section article */
+.main-article {
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-content {
+  width: 40%;
+}
+
+.sub-article {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.sub-article > * {
+  width: 20%;
+}
+
+.sub-article img {
+  width: 100%;
+}
+
+/* responsive */
+@media screen and (min-width: 360px) and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+
+  .main-article {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .side-content {
+    text-align: center;
+    width: 100%;
+  }
+
+  .sub-article {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sub-article > * {
+    width: 100%;
+  }
+
+  .sub-article img {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1604px) {
+  .container {
+    width: 90%;
+  }
+}
+
+/* categories */
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.categories-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.categories-links div {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.bakery img:hover,
+.delicatessen img:hover,
+.greengrocer img:hover,
+.butcher img:hover,
+.fishmonger img:hover {
+  transform: scale(1.3);
+  transition: transform 0.8s ease; 
+}
+
+.categories-links img {
+  max-width: 100%;
+  transition: transform 1s;
+}
+
+.bakery-delicatessen-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.delicatessen {
+  margin-top: 0.4em;
+  height: 100%;
+}
+
+.butcher-fishmonger-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fishmonger {
+  margin-top: 1em;
+}
+
+/* responsive */
+@media screen and (min-width: 360px) and (max-width: 768px) {
+  .categories-links button.opaque-btn {
+    font-size: 0.5rem;
+    padding: 1em;
+  }
+}

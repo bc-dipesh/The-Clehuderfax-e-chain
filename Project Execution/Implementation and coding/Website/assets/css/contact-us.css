@@ -1,0 +1,145 @@
+box-sizing {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    -moz-box-sizing: inherit;
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+
+/***************
+Contact-Us styles
+***************/
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.contact-container>h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.ways-to-contact {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+}
+
+.contact {
+    width: 30%;
+}
+
+.contact h5 {
+    font-weight: 900;
+}
+
+.contact p {
+    font-size: .8rem;
+    text-transform: none;
+}
+
+.contact-icon {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #efefef;
+    transition: color ease 0.8s;
+}
+
+.contact-icon:hover {
+    color: #c79b2c;
+}
+
+.border {
+    border: 1px solid #efefef;
+}
+
+.contact-form-container>h2 {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.contact-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.input-container input {
+    background-color: #f7f7f7;
+    width: 28%;
+}
+
+.text-area-container textarea {
+    border: 1px solid #efefef;
+    background-color: #f7f7f7;
+    width: 100%;
+    transition: border-color ease 0.8s;
+}
+
+.text-area-container textarea:focus {
+    border: 2px solid #c79b2c;
+    outline: none;
+}
+
+.input-container input {
+    border: 1px solid #efefef;
+    padding: 1em;
+    transition: border-color ease 0.8s;
+}
+
+.input-container input:focus {
+    border: 2px solid #c79b2c;
+    outline: none;
+}
+
+button {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+
+button:hover {
+    background-color: #FFFFFF;
+    color: #333333;
+    border-color: #333333;
+}
+
+
+/* responsive */
+
+@media screen and (min-width: 360px) and (max-width: 767px) {
+    .shop-nav-link {
+        padding: 0;
+    }
+    .ways-to-contact {
+        flex-direction: column;
+    }
+    .contact {
+        margin-top: 1em;
+        width: 100%;
+    }
+    .input-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .input-container input {
+        margin-top: 1em;
+        max-width: 100%;
+        width: 300px;
+        padding: 1em;
+    }
+}
