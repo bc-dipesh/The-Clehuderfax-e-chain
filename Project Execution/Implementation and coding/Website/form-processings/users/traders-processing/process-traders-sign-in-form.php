@@ -2,6 +2,7 @@
 session_start();
 
 require_once "../../../models/Database.php";
+require_once "../../../functions/customFunctions.php";
 
 $db = new Database();
 
@@ -21,10 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = validate($_POST['password']);
 
         // get the user from the database.
-        $query = "SELECT * FROM USERS WHERE EMAIL = ?";
-        $stmt = $db->conn->prepare($query);
-        $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $user = getUserWithEmail($db, $email);
 
         // verify the password.
         $result = password_verify($password, $user->PASSWORD);
@@ -36,7 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("location: ../../../users/customers/customers-sign-in.php");
             } else {
                 // if verified redirect user to the home page
-                $_SESSION['trader'] = $user;
+                $trader = getTraderWithUserId($db, $user->USER_ID);
+                $_SESSION['user'] = $user;
+                $_SESSION['trader'] = $trader;
+                $_SESSION['loginMsg'] = "You have successfully logged in.";
                 header("location: ../../../index.php");
             }
         } else {

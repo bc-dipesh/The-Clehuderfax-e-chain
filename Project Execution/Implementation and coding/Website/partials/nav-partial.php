@@ -1,7 +1,7 @@
 <header class="header">
     <nav class="nav-bar">
         <!--search-form-->
-        <form class="search-form" action="search-form.php">
+        <form class="search-form" action="./search-products.php" method="GET">
             <input class="search-input" type="text" name="prodToSearch" placeholder="search..." id="prodToSearch">
         </form> <!-- ./search-form -->
 
@@ -43,15 +43,22 @@
         </div> <!-- ./hamburger-menu -->
 
         <ul class="aside-nav-list">
-            <?php if (isset($_SESSION['user'])) : ?>
+            <?php if (isset($_SESSION['customer'])) : ?>
                 <li class="nav-item">
-                    <a href="./users/dashboard.php" class="nav-link">Profile</a>
+                    <a href="./users/customers/customers-dashboard.php" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a href="./users/logout.php" class="nav-link">Logout</a>
                 </li>
                 <li class="nav-item">
                     <a href="./cart.php" class="nav-link">Cart</a>
+                </li>
+            <?php elseif (isset($_SESSION['trader'])) : ?>
+                <li class="nav-item">
+                    <a href="./users/traders/traders-dashboard.php" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./users/logout.php" class="nav-link">Logout</a>
                 </li>
             <?php else: ?>
                 <li class="nav-item">

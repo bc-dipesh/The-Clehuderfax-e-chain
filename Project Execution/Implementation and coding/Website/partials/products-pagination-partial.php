@@ -7,9 +7,9 @@ $items = "";
 $db = new Database();
 $conn = $db->conn;
 
-$stmt = $conn->prepare($allProductQuery);
+$stmt = $conn->prepare($query);
 $stmt->execute();
-$items = $stmt->fetchAll();
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $resultsPerPage = 6;
 $currentNumOfResults = count($items);
@@ -32,7 +32,7 @@ if ($currentPage > 1) {
 
 $stmt = $conn->prepare($paginationQuery);
 $stmt->execute([$startLimitNumber, $endLimitNumber]);
-$items = $stmt->fetchAll();
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!--Display styling-->

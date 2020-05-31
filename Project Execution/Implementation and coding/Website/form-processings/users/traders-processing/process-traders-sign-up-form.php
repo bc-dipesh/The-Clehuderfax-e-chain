@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $invalid['pass'] = 'Please provide a strong password';
         }
     } else {
-        $invalid['pass'] = "Password field cannot be empty";
+        $invalid['pass'] = "Password field should atleast contain one uppercase, one numeric and one symbol.";
     }
 
     // store all the messages in the session

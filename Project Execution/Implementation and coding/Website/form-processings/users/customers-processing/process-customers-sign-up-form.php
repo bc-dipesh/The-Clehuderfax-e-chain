@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($pass != $re_pass) {
             $invalid['pass'] = "Please re-type passwords correctly to confirm password";
         } elseif (!preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $pass)) {
-            $invalid['pass'] = 'Please provide a strong password';
+            $invalid['pass'] = 'Password field should atleast contain one uppercase, one numeric and one symbol.';
         }
     } else {
         $invalid['pass'] = "Password field cannot be empty";
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = trim($_POST['email']);
         $address = trim($_POST['address']);
         $phone = trim($_POST['mobileNumber']);
-        $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+        $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);
 
         // generate a random verification token to verify email address
         $token = md5(rand(0, 1000));

@@ -28,7 +28,7 @@ function getNewTotalQuantity($db, $productQuantity, $productId, $product)
     }
 }
 
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['customer'])) {
 // import database
     require_once "../models/Database.php";
 
@@ -50,7 +50,7 @@ if (isset($_SESSION['user'])) {
     // first get the customer that this user represents
     $query = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
     $stmt = prepareStatement($db, $query);
-    $stmt->execute([$_SESSION['user']->USER_ID]);
+    $stmt->execute([$_SESSION['customer']->USER_ID]);
     $customer = $stmt->fetch(PDO::FETCH_OBJ);
 
     // then get the basket that this customer represents

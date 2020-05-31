@@ -14,22 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $stmt->execute([$_GET['email'], $_GET['token']]);
         $user = $stmt->fetch();
 
-        if (count($user) > 0) {
+        if ($user) {
             // update the verification flag and token in the database
             $query = "UPDATE USERS SET IS_VERIFIED = 1, VERIFICATION_TOKEN = ? WHERE USER_ID = ?";
             $stmt = $db->conn->prepare($query);
-            if ($stmt->execute([null, $user['USER_ID']])) {
+            if ($stmt->execute([null, $user->USER_ID])) {
                 // since user has verified the email-address also add the user to customer and create a basket
                 // first create new customer entry
                 $query = "INSERT INTO CUSTOMERS (USER_ID) VALUES (?)";
                 $stmt = $db->conn->prepare($query);
-                $stmt->execute([$user['USER_ID']]);
+                $stmt->execute([$user->USER_ID]);
 
                 // then, get the customer id to create basket
                 $query = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
                 $stmt = $db->conn->prepare($query);
-                $stmt->execute([$user['USER_ID']]);
-                $customer = $stmt->fetch(PDO::FETCH_OBJ);
+                $stmt->execute([$user->USER_ID]);
+                $customer = $stmt->fetch();
 
                 // now create basket for the newly verified customer
                 $query = "INSERT INTO BASKETS (CUSTOMER_ID) VALUES (?)";
@@ -47,3 +47,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 
+// $2y$10$uK3pf6T9MtHy30Ao3HpjvOQA00gsePHVNpAcdAml92tf0BIStbaHi

@@ -1,23 +1,20 @@
 <?php
-$pageTitle = basename(__FILE__, '.php');
 
-// import header from partials
+// import necessary files
+require_once "./functions/customFunctions.php";
 require_once "./partials/header-partial.php";
 require_once "./models/Database.php";
+
+// if customer has not logged in redirect to login page.
+if (!isset($_SESSION['customer'])) {
+    header("location: ./users/customers/customers-sign-in.php");
+}
+
+$pageTitle = basename(__FILE__, '.php');
 $db = new Database();
 
-if (isset($_SESSION['basketProducts'])) {
-    $basketProducts = $_SESSION['basketProducts'];
-}
-
-// get a specific product
-function getProduct($db, $productId)
-{
-    $query = "SELECT * FROM PRODUCTS WHERE PRODUCT_ID = ?";
-    $stmt = $db->conn->prepare($query);
-    $stmt->execute([$productId]);
-    return $stmt->fetch(PDO::FETCH_OBJ);
-}
+$basketProducts = "";
+$basketProducts = $_SESSION['basketProducts'];
 
 ?>
 
@@ -55,61 +52,62 @@ function getProduct($db, $productId)
             <label class="product-removal">Remove</label>
             <label class="product-line-price">Total</label>
         </div>
+        <form action="./checkout.php" method="POST">
+            <?php $totalAmount = number_format(0, 2); ?>
+            <?php if (!empty($basketProducts)) : ?>
+                <?php foreach ($basketProducts as $basketProduct) : ?>
+                    <?php $product = getProduct($db, $basketProduct->PRODUCT_ID); ?>
+                    <?php $amount = number_format($product->RATE, 2) * number_format($basketProduct->QUANTITY); ?>
+                    <div class="product">
+                        <div class="product-image">
+                            <img src="./assets/img/products/<?php echo $product->IMAGE; ?>">
+                        </div>
+                        <div class="product-details">
+                            <div class="product-title"><?php echo $product->PRODUCT_NAME; ?></div>
+                            <p class="product-description"><?php echo $product->DESCRIPTION; ?></p>
+                        </div>
+                        <div class="product-price"><?php echo $product->RATE; ?></div>
+                        <div class="product-quantity">
+                            <input type="number" value="<?php echo $basketProduct->QUANTITY; ?>" min="1"
+                                   max="<?php echo $product->MAX_ORDER; ?>">
+                            <input id="productId" type="hidden" value="<?php echo $basketProduct->PRODUCT_ID; ?>">
+                        </div>
+                        <div class="product-removal">
+                            <button class="remove-product" type="button">
+                                Remove
+                            </button>
+                            <input id="productId" type="hidden" value="<?php echo $basketProduct->PRODUCT_ID; ?>">
+                        </div>
+                        <div class="product-line-price"><?php echo $amount; ?></div>
+                    </div>
+                    <?php $totalAmount += number_format($amount, 2); ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <ul class="nav-item">
+                    <a class="nav-link" href="./shop.php">Cart is empty click here to start shopping</a>
+                </ul>
+            <?php endif; ?>
 
-        <?php $totalAmount = 0; ?>
-        <?php if (isset($_SESSION['basketProducts']) || empty($basketProducts)) : ?>
-            <?php foreach ($basketProducts as $basketProduct) : ?>
-                <?php $product = getProduct($db, $basketProduct->PRODUCT_ID); ?>
-                <?php $amount = number_format($product->RATE, 2) * number_format($basketProduct->QUANTITY); ?>
-                <div class="product">
-                    <div class="product-image">
-                        <img src="./assets/img/products/<?php echo $product->IMAGE; ?>">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-title"><?php echo $product->PRODUCT_NAME; ?></div>
-                        <p class="product-description"><?php echo $product->DESCRIPTION; ?></p>
-                    </div>
-                    <div class="product-price"><?php echo $product->RATE; ?></div>
-                    <div class="product-quantity">
-                        <input type="number" value="<?php echo $basketProduct->QUANTITY; ?>" min="1"
-                               max="<?php echo $product->MAX_ORDER; ?>">
-                        <input id="productId" type="hidden" value="<?php echo $basketProduct->PRODUCT_ID; ?>">
-                    </div>
-                    <div class="product-removal">
-                        <button class="remove-product">
-                            Remove
-                        </button>
-                        <input id="productId" type="hidden" value="<?php echo $basketProduct->PRODUCT_ID; ?>">
-                    </div>
-                    <div class="product-line-price"><?php echo $amount; ?></div>
+            <div class="totals">
+                <div class="totals-item">
+                    <label>Subtotal</label>
+                    <div class="totals-value" id="cart-subtotal">0</div>
                 </div>
-                <?php $totalAmount += number_format($amount); ?>
-            <?php endforeach; ?>
-        <?php else: ?>
-        <ul class="nav-item">
-            <a class="nav-link" href="./users/customers/customers-sign-in.php">Cart is empty click here to login to add items to cart</a>
-        </ul>
-        <?php endif; ?>
-
-        <div class="totals">
-            <div class="totals-item">
-                <label>Subtotal</label>
-                <div class="totals-value" id="cart-subtotal">0</div>
+                <div class="totals-item">
+                    <label>Tax (5%)</label>
+                    <div class="totals-value" id="cart-tax">0</div>
+                </div>
+                <div class="totals-item">
+                    <label>Shipping</label>
+                    <div class="totals-value" id="cart-shipping">0</div>
+                </div>
+                <div class="totals-item totals-item-total">
+                    <label>Grand Total</label>
+                    <div class="totals-value" id="cart-total"><?php echo $totalAmount; ?></div>
+                </div>
             </div>
-            <div class="totals-item">
-                <label>Tax (5%)</label>
-                <div class="totals-value" id="cart-tax">0</div>
-            </div>
-            <div class="totals-item">
-                <label>Shipping</label>
-                <div class="totals-value" id="cart-shipping">0</div>
-            </div>
-            <div class="totals-item totals-item-total">
-                <label>Grand Total</label>
-                <div class="totals-value" id="cart-total"><?php echo $totalAmount; ?></div>
-            </div>
-        </div>
-        <button class="checkout">Checkout</button>
+            <button class="checkout" type="submit" name="checkoutBtn">Checkout</button>
+        </form>
     </div>
 
     <!--page specific js-->

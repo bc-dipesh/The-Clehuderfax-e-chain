@@ -7,7 +7,7 @@ $pageTitle = basename(__FILE__, '.php');
 require_once "./partials/header-partial.php";
 
 // page specific query
-$allProductQuery = "SELECT * FROM PRODUCTS WHERE PRODUCT_CATEGORY_ID = 5";
+$query = "SELECT * FROM PRODUCTS WHERE PRODUCT_CATEGORY_ID = 5";
 
 $paginationQuery = "SELECT * FROM (
             SELECT

@@ -15,6 +15,7 @@
             <div class="signin-image">
                 <figure><img src="../../assets/img/logo/logo.png" alt="sing up image"></figure>
                 <a href="./traders-sign-up.php" class="signup-image-link">Create Trader account</a>
+                <a href="./traders-forgot-password.php" class="signup-image-link">Forgot your password?</a>
                 <a href="../../index.php" class="signup-image-link">Back to home</a>
             </div>
 

@@ -1,7 +1,9 @@
 <?php
-session_start();
 
 require_once "../../../models/Database.php";
+require_once "../../../functions/customFunctions.php";
+
+session_start();
 
 $db = new Database();
 
@@ -21,10 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = validate($_POST['password']);
 
         // get the user from the database.
-        $query = "SELECT * FROM USERS WHERE EMAIL = ?";
-        $stmt = $db->conn->prepare($query);
-        $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $user = getUserWithEmail($db, $email);
 
         // verify the password.
         $result = password_verify($password, $user->PASSWORD);
@@ -35,8 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['error'] = "Please verify your email before logging in.";
                 header("location: ../../../users/customers/customers-sign-in.php");
             } else {
-                // if verified redirect user to the home page
+                // if verified set the customer session and grab his/her basket products if there is any
+                // get required data
+                $customer = getCustomerWithUserId($db, $user->USER_ID);
+                $basket = getBasketWithCustomerId($db, $customer->CUSTOMER_ID);
+                $basketProducts = getBasketProductsWithBasketId($db, $basket->BASKET_ID);
+
+                // set session data
                 $_SESSION['user'] = $user;
+                $_SESSION['customer'] = $customer;
+                $_SESSION['basket'] = $basket;
+                $_SESSION['basketProducts'] = $basketProducts;
+                $_SESSION['loginMsg'] = "You have successfully logged in.";
+
                 header("location: ../../../index.php");
             }
         } else {

@@ -4,6 +4,26 @@ $pageTitle = basename(__FILE__, '.php');
 // import header from partials
 require_once "./partials/header-partial.php";
 
+if (isset($_SESSION['loginMsg'])) {
+    $msg = $_SESSION['loginMsg'];
+    echo "<script>alert('$msg')</script>";
+    unset($_SESSION['loginMsg']);
+    $msg = null;
+}
+
+
+//if (isset($_REQUEST['st'])) {
+//    if (strtolower($_REQUEST['st']) == 'completed') {
+//        echo "<script>alert('Payment was successful.') </script>";
+//    } else {
+//        echo "<script>alert('There was problem with the payment. Please try again.') </script>";
+//    }
+//    unset($_REQUEST['amt']);
+//    unset($_REQUEST['cc']);
+//    unset($_REQUEST['st']);
+//    unset($_REQUEST['tx']);
+//}
+
 ?>
     <!-- apply page-specific css -->
     <link rel="stylesheet" href="./assets/css/home.css">

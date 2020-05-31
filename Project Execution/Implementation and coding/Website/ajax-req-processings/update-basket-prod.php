@@ -1,14 +1,16 @@
 <?php
-session_start();
 
-// import database
+// import necessary files
 require_once "../models/Database.php";
+require_once "../functions/customFunctions.php";
+
+session_start();
 $db = new Database();
 
 $quantity = $_POST['prodQuantity'];
 $productId = $_POST['productId'];
 
-// loop and update the correct basket product
+// loop and update the correct basket product in the database and session
 foreach ($_SESSION['basketProducts'] as &$basketProduct) {
     if ($basketProduct->PRODUCT_ID == $productId) {
         $basketProduct->QUANTITY = $quantity;
@@ -20,3 +22,4 @@ foreach ($_SESSION['basketProducts'] as &$basketProduct) {
         $stmt->execute([$quantity, $productId]);
     }
 }
+
