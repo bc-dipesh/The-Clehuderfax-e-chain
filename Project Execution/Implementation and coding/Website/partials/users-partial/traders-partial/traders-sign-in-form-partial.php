@@ -10,6 +10,15 @@
             </div>
         <?php endif; ?>
 
+        <?php if (isset($_SESSION['requestFailed'])) : ?>
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <?php echo $_SESSION['requestFailed']; ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+
         <?php unset($_SESSION['msg']); ?>
         <div class="signin-content">
             <div class="signin-image">

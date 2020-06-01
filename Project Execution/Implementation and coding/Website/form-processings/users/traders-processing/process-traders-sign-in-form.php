@@ -31,20 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user->IS_VERIFIED == false) {
                 // redirect user to login prompting him/her to verify email first
                 $_SESSION['error'] = "Please verify your email before logging in.";
-                header("location: ../../../users/customers/customers-sign-in.php");
+                header("location: ../../../users/traders/traders-sign-in.php");
             } else {
                 // if verified redirect user to the home page
                 $trader = getTraderWithUserId($db, $user->USER_ID);
                 $_SESSION['user'] = $user;
                 $_SESSION['trader'] = $trader;
                 $_SESSION['loginMsg'] = "You have successfully logged in.";
-                header("location: ../../../index.php");
+                header("location: ../../../users/traders/traders-dashboard.php");
             }
         } else {
             $_SESSION['email'] = $email;
             $_SESSION['error'] = "Email or password incorrect.";
             // don't tell the person trying to log in if either the password or email is incorrect
-            header("location: ../../../users/customers/customers-sign-in.php");
+            header("location: ../../../users/traders/traders-sign-in.php");
         }
     }
 

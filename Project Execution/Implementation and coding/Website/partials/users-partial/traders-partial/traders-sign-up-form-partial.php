@@ -21,7 +21,7 @@
                       method="POST" class="register-form" id="register-form">
                     <div class="form-group">
                         <select required name="traderType" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                            <option selected>Choose Trader Type...</option>
+                            <option>Choose Trader Type...</option>
                             <option value="1">Bakery</option>
                             <option value="2">Delicatessen</option>
                             <option value="3">Greengrocer</option>

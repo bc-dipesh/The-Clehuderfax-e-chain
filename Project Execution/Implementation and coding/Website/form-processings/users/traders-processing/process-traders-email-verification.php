@@ -14,21 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $stmt->execute([$_GET['email'], $_GET['token']]);
         $user = $stmt->fetch();
 
-        if (count($user) > 0) {
+        if ($user) {
             // update the verification flag and token in the database
             $query = "UPDATE USERS SET IS_VERIFIED = 1, VERIFICATION_TOKEN = ? WHERE USER_ID = ?";
             $stmt = $db->conn->prepare($query);
-            if ($stmt->execute([null, $user['USER_ID']])) {
+            if ($stmt->execute([null, $user->USER_ID])) {
                 // since user has verified the email-address also add the user to trader and trader type
                 // first create new trader entry
                 $query = "INSERT INTO TRADERS (USER_ID) VALUES (?)";
                 $stmt = $db->conn->prepare($query);
-                $stmt->execute([$user['USER_ID']]);
+                $stmt->execute([$user->USER_ID]);
 
                 // then, get the trader
                 $query = "SELECT * FROM TRADERS WHERE USER_ID = ?";
                 $stmt = $db->conn->prepare($query);
-                $stmt->execute([$user['USER_ID']]);
+                $stmt->execute([$user->USER_ID]);
                 $trader = $stmt->fetch(PDO::FETCH_OBJ);
 
                 // generate the appropriate description for the trader type
@@ -64,6 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 header("location: ../../../users/traders/traders-sign-in.php");
             }
         }
+    } else {
+        $_SESSION['requestFailed'] = "There was a problem while we were verifying your request, please try again.";
+        header("location: ../../../users/traders/traders-sign-in.php");
     }
 }
 

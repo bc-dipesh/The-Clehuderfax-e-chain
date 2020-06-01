@@ -20,7 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['traderType'])) {
         $invalid['traderType'] = 'Please select a trader type';
     } else {
-        $valid['traderType'] = $_POST['traderTYpe'];
+        $traderType = validate($_POST['traderType']);
+        if ($traderType >= 1 and $traderType <= 5) {
+            $valid['traderType'] = $_POST['traderTYpe'];
+        } else {
+            $invalid['traderType'] = 'Please select a valid trader type';
+        }
     }
 
     // validate firstName
