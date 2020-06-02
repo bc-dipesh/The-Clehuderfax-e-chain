@@ -82,7 +82,7 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
                         <div class="number-input">
                             <button type="button"
                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                            <input id="quantity" class="quantity" min="0" max="<?php echo $product->MAX_ORDER; ?>"
+                            <input id="quantity" class="quantity" min="1" max="<?php echo $product->MAX_ORDER; ?>"
                                    name="quantity" value="1" type="number">
                             <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                     class="plus"></button>

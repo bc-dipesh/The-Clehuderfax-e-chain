@@ -57,9 +57,9 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $page <= $numberOfPages;
         $page++) {
         if ($page == $currentPage) {
-        echo "<a href='$pageTitle.php?page=$page'><span class='current-page'>$page</span></a>";
+        echo "<a href='$pageTitle.php?page=$page&orderBy=$orderBy&minPrice=$minPrice&maxPrice=$maxPrice'><span class='current-page'>$page</span></a>";
         } else {
-        echo "<a href='$pageTitle.php?page=$page'><span>$page</span></a>";
+        echo "<a href='$pageTitle.php?page=$page&orderBy=$orderBy&minPrice=$minPrice&maxPrice=$maxPrice'><span>$page</span></a>";
         }
         ?>
         <?php } ?>

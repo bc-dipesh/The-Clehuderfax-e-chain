@@ -1,5 +1,4 @@
 <?php
-require_once "./models/Product.php";
 
 $pageTitle = basename(__FILE__, '.php');
 
@@ -8,13 +7,41 @@ require_once "./partials/header-partial.php";
 
 // page specific query
 $query = "SELECT * FROM PRODUCTS WHERE PRODUCT_CATEGORY_ID = 1";
+$sortIn = "ASC";
+$orderBy = "priceAsc";
+$minPrice = 1;
+$maxPrice = 10000;
 
-$paginationQuery = "SELECT * FROM (
+// change the sorting order
+if (isset($_GET['orderBy'])) {
+    if ($_GET['orderBy'] == "priceDesc") {
+        $sortIn = "DESC";
+        $orderBy = "priceDesc";
+    } else if ($_GET['orderBy'] == "priceAsc") {
+        $sortIn = "ASC";
+        $orderBy = "priceAsc";
+    }
+}
+
+if (isset($_GET['minPrice']) and isset($_GET['maxPrice'])) {
+    $minPrice = $_GET['minPrice'];
+    $maxPrice = $_GET['maxPrice'];
+    $paginationQuery = "SELECT * FROM (
             SELECT
             products.*,
-            row_number() over (ORDER BY product_id ASC) line_number
+            row_number() over (ORDER BY RATE $sortIn) line_number
+            FROM products WHERE product_category_id = 1
+        ) WHERE line_number BETWEEN ? AND ? 
+        AND RATE BETWEEN $minPrice AND $maxPrice
+        ORDER BY line_number";
+} else {
+    $paginationQuery = "SELECT * FROM (
+            SELECT
+            products.*,
+            row_number() over (ORDER BY RATE $sortIn) line_number
             FROM products WHERE product_category_id = 1
         ) WHERE line_number BETWEEN ? AND ? ORDER BY line_number";
+}
 
 ?>
     <!-- apply page-specific css -->
@@ -45,14 +72,13 @@ $paginationQuery = "SELECT * FROM (
         <div class="left">
             <div class="top">
                 <div class="top-options">
-                    <select name="orderby" class="orderby" aria-label="Shop order">
-                        <option value="menu_order" selected='selected'>Default sorting</option>
-                        <option value="popularity">Sort by popularity</option>
-                        <option value="rating">Sort by average rating</option>
-                        <option value="date">Sort by latest</option>
-                        <option value="price">Sort by price: low to high</option>
-                        <option value="price-desc">Sort by price: high to low</option>
-                    </select>
+                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET"
+                          onchange="submit()">
+                        <select id="sortSelection" name="orderBy" class="orderby" aria-label="Shop order">
+                            <option <?php if($sortIn == "ASC") echo "selected"; ?> value="priceAsc">Sort by price: low to high</option>
+                            <option <?php if($sortIn == "DESC") echo "selected"; ?> value="priceDesc">Sort by price: high to low</option>
+                        </select>
+                    </form>
                 </div>
             </div> <!-- /top -->
 
@@ -65,14 +91,24 @@ $paginationQuery = "SELECT * FROM (
         <div class="right">
             <div class="product-filter">
                 <h3>Filter By Price</h3>
-                <div class="slidecontainer">
-                    <input type="range" min="1" max="100" value="50" class="slider" id="priceRange">
-                </div>
-                <div class="output">
-                    <button class="filterBtn">Filter</button>
-                    <p class="price-range">Price: $<span class="min-price">0</span>-$<span class="max-price">20</span>
-                    </p>
-                </div>
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET">
+                    <div class="slidecontainer">
+                        <input oninput="updateMinPrice()" name="minPrice" id="minPriceSlider" type="range" min="1"
+                               max="100" class="slider"
+                               value= <?php if (isset($_GET['minPrice'])) echo $_GET['minPrice']; ?>
+                        >
+                        <input oninput="updateMaxPrice()" name="maxPrice" id="maxPriceSlider" type="range" min="1"
+                               max="1000" class="slider"
+                               value= <?php if (isset($_GET['maxPrice'])) echo $_GET['maxPrice']; ?>
+                        >
+                    </div>
+                    <div class="output">
+                        <button class="filterBtn" name="priceFilterBtn">Filter</button>
+                        <p class="price-range">Price: $<span id="minPriceSpan">0</span>-$<span
+                                    id="maxPriceSpan">0</span>
+                        </p>
+                    </div>
+                </form>
                 <div class="product-categories">
                     <h3>Product Categories</h3>
                     <ul class="categories-list">
@@ -96,6 +132,33 @@ $paginationQuery = "SELECT * FROM (
             </div> <!-- /product-filter -->
         </div> <!-- /right -->
     </main>
+
+    <!--Page specific java script-->
+    <script src="./assets/js/add-to-cart.js"></script>
+    <!--price filter-->
+    <script>
+        let minPrice = document.getElementById("minPriceSlider").value;
+        let maxPrice = document.getElementById("maxPriceSlider").value;
+        const minPriceSpan = document.getElementById("minPriceSpan");
+        const maxPriceSpan = document.getElementById("maxPriceSpan");
+
+        window.onload = () => {
+            updateMinPrice();
+            updateMaxPrice();
+        };
+
+
+        function updateMinPrice() {
+            minPrice = document.getElementById("minPriceSlider").value;
+            minPriceSpan.textContent = minPrice;
+        }
+
+        function updateMaxPrice() {
+            maxPrice = document.getElementById("maxPriceSlider").value;
+            maxPriceSpan.textContent = maxPrice;
+        }
+
+    </script>
 
     <!-- import footer from partials -->
 <?php require_once "./partials/footer-partial.php"; ?>

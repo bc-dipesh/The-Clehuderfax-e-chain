@@ -138,7 +138,7 @@ main .top-options {
 }
 
 main .orderby {
-    width: 100%;
+    /*width: 100%;*/
     padding: 1em;
     border: none;
     color: #696969;
