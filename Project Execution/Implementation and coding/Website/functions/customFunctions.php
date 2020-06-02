@@ -4,6 +4,8 @@ define("FETCH_USER_WITH_ID", "SELECT * FROM USERS WHERE USER_ID = ?");
 
 define("FETCH_USER_WITH_EMAIL", "SELECT * FROM USERS WHERE EMAIL = ?");
 
+define("FETCH_ADMIN_WITH_USER_ID", "SELECT * FROM ADMINS WHERE USER_ID = ?");
+
 define("FETCH_CUSTOMER_WITH_USER_ID", "SELECT * FROM CUSTOMERS WHERE USER_ID = ?");
 
 define("FETCH_TRADER_WITH_USER_ID", "SELECT * FROM TRADERS WHERE USER_ID = ?");
@@ -71,6 +73,15 @@ function getUserWithEmail($db, $email)
 {
     $stmt = prepareStmt($db, FETCH_USER_WITH_EMAIL);
     $stmt->execute([$email]);
+
+    return $stmt->fetch();
+}
+
+// fetch admin
+function getAdminWithUserId($db, $userId)
+{
+    $stmt = prepareStmt($db, FETCH_ADMIN_WITH_USER_ID);
+    $stmt->execute([$userId]);
 
     return $stmt->fetch();
 }

@@ -263,12 +263,12 @@ if (!isset($_SESSION['trader'])) {
                                         <?php foreach ($products as $product) : ?>
                                             <tr>
                                                 <td>
-                                                    <form action="../../form-processings/users/traders-processing/update-products.php" method="POST">
+                                                    <form action="./update-products.php" method="POST">
                                                         <button type="submit" name="update" value="<?php echo $product->PRODUCT_ID; ?>" class="btn btn-warning btn-xs update">Update</button>
                                                     </form>
                                                 </td>
                                                 <td>
-                                                    <form action="../../form-processings/users/traders-processing/delete-products.php" method="POST">
+                                                    <form action="../../form-processings/users/traders-processing/process-traders-delete-products.php" method="POST">
                                                         <button type="submit" name="delete" value="<?php echo $product->PRODUCT_ID; ?>" class="btn btn-danger btn-xs delete">Delete</button>
                                                     </form>
                                                 </td>
@@ -352,12 +352,12 @@ if (!isset($_SESSION['trader'])) {
 
     <!-- Page level custom scripts -->
     <script src="../../template-assets/js/demo/datatables-demo.js"></script>
-    <?php if ($_SESSION['updateResponse']) : ?>
+    <?php if (isset($_SESSION['updateResponse'])) : ?>
         <script>
             $('#product-update-response-modal').modal('show')
         </script>
         <?php unset($_SESSION['updateResponse']); ?>
-    <?php elseif ($_SESSION['deleteResponse']) : ?>
+    <?php elseif (isset($_SESSION['deleteResponse'])) : ?>
         <script>
             $('#product-update-response-modal').modal('show')
         </script>

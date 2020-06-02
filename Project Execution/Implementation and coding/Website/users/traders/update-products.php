@@ -2,9 +2,17 @@
 session_start();
 $pageTitle = basename(__FILE__, ".php");
 
-if (!isset($_SESSION['trader'])) {
+if (!isset($_SESSION['trader']) and !isset($_SESSION['update'])) {
     header("location: ./traders-sign-in.php");
 }
+
+// import necessary files
+require_once "../../functions/customFunctions.php";
+require_once "../../models/Database.php";
+
+$db = new Database();
+
+$product = getProduct($db, $_POST['update']);
 
 ?>
 
@@ -30,23 +38,21 @@ if (!isset($_SESSION['trader'])) {
 </head>
 
 <body style="background-color:#efefef;">
-    <h1 class="display-4 text-center">Add Product</h1>
+    <h1 class="display-4 text-center">Update Product</h1>
     <div class="mt-5 d-flex justify-content-center">
-        <form action="../../form-processings/users/traders-processing/process-traders-add-prod.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="productId">
+        <form action="../../form-processings/users/traders-processing/process-traders-update-prod.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="productId" value="<?php if(!empty($product)) echo $product->PRODUCT_ID; ?>">
             <div class="form-group">
                 <label for="productName">Product Name</label>
-                <input required type="text" class="form-control" name="productName" placeholder="Enter Product Name"
-                value="<?php if(isset($_SESSION['valid']['prodName'])) echo $_SESSION['valid']['prodName']; ?>">
+                <input required type="text" class="form-control" name="productName" placeholder="Enter Product Name" value="<?php if (!empty($product)) echo $product->PRODUCT_NAME; ?>">
             </div>
             <div class="form-group">
                 <label for="productDescription">Description</label>
-                <textarea required class="form-control" name="productDescription" rows="3" placeholder="Enter Product Description"><?php if(isset($_SESSION['valid']['prodDesc'])) echo $_SESSION['valid']['prodDesc']; ?></textarea>
+                <textarea required class="form-control" name="productDescription" rows="3" placeholder="Enter Product Description"><?php if (!empty($product)) echo $product->DESCRIPTION; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="productRate">Rate</label>
-                <input required type="number" step="0.01" class="form-control" name="productRate" placeholder="Enter Product Rate"
-                value="<?php if(isset($_SESSION['valid']['prodRate'])) echo $_SESSION['valid']['prodRate']; ?>">
+                <input required type="number" step="0.01" class="form-control" name="productRate" placeholder="Enter Product Rate" value="<?php if (!empty($product)) echo $product->RATE; ?>">
             </div>
             <div class="form-group">
                 <label for="productAvailability">Product availability</label>
@@ -64,36 +70,27 @@ if (!isset($_SESSION['trader'])) {
             <div class="form-group">
                 <label for="productImage">Product Image</label>
                 <input type="file" class="form-control-file" name="productImage">
-                <?php if (isset($_SESSION['emptyImage'])) : ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $_SESSION['emptyImage']; ?>
-                    </div>
-                    <?php unset($_SESSION['emptyImage']); ?>
-                <?php endif; ?>
+                <input type="hidden" name="defaultImage" value="<?php if(!empty($product)) echo $product->IMAGE; ?>">
             </div>
             <div class="form-group">
                 <label for="productAllergyInfo">Allergy Info</label>
-                <textarea required class="form-control" name="productAllergyInfo" rows="3" placeholder="Enter Product Allery Info"><?php if(isset($_SESSION['valid']['allergyInfo'])) echo $_SESSION['valid']['allergyInfo']; ?></textarea>
+                <textarea required class="form-control" name="productAllergyInfo" rows="3" placeholder="Enter Product Allery Info"><?php if (!empty($product)) echo $product->ALLERGY_INFO; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="productMinOrder">Minimum Order</label>
-                <input required type="number" class="form-control" name="productMinOrder" placeholder="Enter Product Minimum Order"
-                value="<?php if(isset($_SESSION['valid']['minOrder'])) echo $_SESSION['valid']['minOrder']; ?>">
+                <input required type="number" class="form-control" name="productMinOrder" placeholder="Enter Product Minimum Order" value="<?php if (!empty($product)) echo $product->MIN_ORDER; ?>">
             </div>
             <div class="form-group">
                 <label for="productMaxOrder">Maximum Order</label>
-                <input required type="number" class="form-control" name="productMaxOrder" placeholder="Enter Product Maximum Order"
-                value="<?php if(isset($_SESSION['valid']['maxOrder'])) echo $_SESSION['valid']['maxOrder']; ?>">
+                <input required type="number" class="form-control" name="productMaxOrder" placeholder="Enter Product Maximum Order" value="<?php if (!empty($product)) echo $product->MAX_ORDER; ?>">
             </div>
             <div class="form-group">
                 <label for="productQuantity">Product Quantity</label>
-                <input required type="number" class="form-control" name="productQuantity" placeholder="Enter Product Quantity"
-                value="<?php if(isset($_SESSION['valid']['quantity'])) echo $_SESSION['valid']['quantity']; ?>">
+                <input required type="number" class="form-control" name="productQuantity" placeholder="Enter Product Quantity" value="<?php if (!empty($product)) echo $product->QUANTITY; ?>">
             </div>
 
-            <button type="submit" name="addBtn" value="add" class="btn btn-primary">Add Product</button>
-            <a href="./traders-product.php"><button type="button" class="btn btn-primary">Go Back</button></a>
-            <?php unset($_SESSION['valid']); ?>
+            <button type="submit" name="updateBtn" value="update" class="btn btn-primary">Update Product</button>
+            <a href="../../users/traders/traders-product.php"><button type="button" class="btn btn-primary">Go Back</button></a>
         </form>
 
     </div>
