@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $customer = $stmt->fetch();
 
                 // now create basket for the newly verified customer
-                $query = "INSERT INTO BASKETS (CUSTOMER_ID) VALUES (?)";
+                $query = "INSERT INTO BASKETS (CUSTOMER_ID, ACTIVE) VALUES (?, ?)";
                 $stmt = $db->conn->prepare($query);
-                $stmt->execute([$customer->CUSTOMER_ID]);
+                $stmt->execute([$customer->CUSTOMER_ID, 1]);
 
                 $_SESSION['msg'] = "Thank you for verifying your email address. We hope that you enjoy our services.";
                 header("location: ../../../users/customers/customers-sign-in.php");

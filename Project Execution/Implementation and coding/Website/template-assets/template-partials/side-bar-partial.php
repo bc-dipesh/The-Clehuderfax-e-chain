@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion shadow" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./traders-dashboard.php">
@@ -16,7 +16,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="./traders-dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span><?php echo $_SESSION['user']->FIRST_NAME . " "; ?>Dashboard</span></a>
+            <span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
@@ -34,6 +34,12 @@
         <a class="nav-link" href="./add-products.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Add Product</span></a>
+    </li>
+    <!-- Nav Item - Back to website -->
+    <li class="nav-item active">
+        <a class="nav-link" href="../../index.php">
+            <i class="fas fa-fw fa-arrow-left"></i>
+            <span>Back to website</span></a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->

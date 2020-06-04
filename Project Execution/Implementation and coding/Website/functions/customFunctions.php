@@ -44,7 +44,7 @@ define("ADD_PRODUCT", "INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, 
 define("UPDATE_PRODUCT_WITH_ID", "UPDATE PRODUCTS SET PRODUCT_NAME = ?, DESCRIPTION = ?, RATE = ?, IS_AVAILABLE = ?, IMAGE = ?, ALLERGY_INFO = ?, MIN_ORDER = ?, MAX_ORDER = ?, QUANTITY = ?
                                 WHERE PRODUCT_ID = ?");
 
-define("FETCH_BASKET_WITH_CUSTOMER_ID", "SELECT * FROM BASKETS WHERE CUSTOMER_ID = ?");
+define("FETCH_BASKET_WITH_CUSTOMER_ID", "SELECT * FROM BASKETS WHERE CUSTOMER_ID = ? AND ACTIVE = ?");
 
 define("FETCH_BASKET_PRODUCTS_WITH_BASKET_ID", "SELECT * FROM BASKET_PRODUCTS WHERE BASKET_ID = ?");
 
@@ -122,7 +122,7 @@ function resetPassword($db, $userId)
 function getBasketWithCustomerId($db, $customerId)
 {
     $stmt = prepareStmt($db, FETCH_BASKET_WITH_CUSTOMER_ID);
-    $stmt->execute([$customerId]);
+    $stmt->execute([$customerId, 1]);
 
     return $stmt->fetch();
 }

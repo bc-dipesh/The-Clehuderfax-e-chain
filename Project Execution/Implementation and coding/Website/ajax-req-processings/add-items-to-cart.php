@@ -14,7 +14,7 @@ function getNewTotalQuantity($db, $productQuantity, $productId, $product)
     $query = "SELECT QUANTITY FROM BASKET_PRODUCTS WHERE PRODUCT_ID = $productId";
     $stmt = prepareStatement($db, $query);
     $stmt->execute();
-    $basketProduct = $stmt->fetch(PDO::FETCH_OBJ);
+    $basketProduct = $stmt->fetch();
 
     // calculate new total
     $newProdQuantity = number_format($productQuantity) + number_format($basketProduct->QUANTITY);
@@ -44,33 +44,16 @@ if (isset($_SESSION['customer'])) {
     $query = "SELECT * FROM PRODUCTS WHERE PRODUCT_ID = ?";
     $stmt = prepareStatement($db, $query);
     $stmt->execute([$_POST['productId']]);
-    $product = $stmt->fetch(PDO::FETCH_OBJ);
-
-    // get the basket id for the customer
-    // first get the customer that this user represents
-    $query = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
-    $stmt = prepareStatement($db, $query);
-    $stmt->execute([$_SESSION['customer']->USER_ID]);
-    $customer = $stmt->fetch(PDO::FETCH_OBJ);
-
-    // then get the basket that this customer represents
-    $query = "SELECT * FROM BASKETS WHERE CUSTOMER_ID = ?";
-    $stmt = prepareStatement($db, $query);
-    $stmt->execute([$customer->CUSTOMER_ID]);
-    $basket = $stmt->fetch(PDO::FETCH_OBJ);
-
-// get the basket products.
-    $query = "SELECT * FROM BASKET_PRODUCTS WHERE BASKET_ID = ?";
-    $stmt = prepareStatement($db, $query);
-    $stmt->execute([$basket->BASKET_ID]);
-    $basketProducts = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $product = $stmt->fetch();
 
     $prodFound = false;
 
-    foreach ($basketProducts as $basketProduct) {
-        // determine whether the current product is already in the basket
-        if ($productId == $basketProduct->PRODUCT_ID) {
-            $prodFound = true;
+    if (!empty($_SESSION['basketProducts'])) {
+        foreach ($_SESSION['basketProducts'] as $basketProduct) {
+            // determine whether the current product is already in the basket
+            if ($productId == $basketProduct->PRODUCT_ID) {
+                $prodFound = true;
+            }
         }
     }
 
@@ -78,7 +61,7 @@ if (isset($_SESSION['customer'])) {
     if (!$prodFound) {
         $query = "INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (?, ?, ?)";
         $stmt = prepareStatement($db, $query);
-        if ($stmt->execute([$productId, $basket->BASKET_ID, $productQuantity])) {
+        if ($stmt->execute([$productId, $_SESSION['basket']->BASKET_ID, $productQuantity])) {
             $responseMsg = "Successfully added $product->PRODUCT_NAME to the cart.";
         } else {
             $responseMsg = "Error adding $product->PRODUCT_NAME to the cart.";
@@ -103,11 +86,9 @@ if (isset($_SESSION['customer'])) {
 // store the new/updated basket product/basket products in session
     $query = "SELECT * FROM BASKET_PRODUCTS WHERE BASKET_PRODUCTS.BASKET_ID = ?";
     $stmt = prepareStatement($db, $query);
-    $stmt->execute([$basket->BASKET_ID]);
-    $basketProducts = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $stmt->execute([$_SESSION['basket']->BASKET_ID]);
+    $basketProducts = $stmt->fetchAll();
     $_SESSION['basketProducts'] = $basketProducts;
-//$_SESSION['basketID']['basketProducts'] = [$basket->BASKET_ID][$basketProducts];
-
 
 // send the response message back to the ajax-request
     echo $responseMsg;

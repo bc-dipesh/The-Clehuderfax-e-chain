@@ -27,7 +27,7 @@ require_once "./functions/customFunctions.php";
             </li>
             <li class="nav-item link-separator">/</li>
             <li class="nav-item">
-                <a class="nav-link">Products</a>
+                <a href="./shop.php" class="nav-link">Products</a>
             </li>
             <li class="nav-item link-separator">/</li>
             <li class="nav-item">

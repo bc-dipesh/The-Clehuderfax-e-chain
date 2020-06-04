@@ -1,5 +1,8 @@
 <?php
 
+// determine the page title
+$pageTitle = basename(__FILE__, '.php');
+
 // import necessary files
 require_once "./functions/customFunctions.php";
 require_once "./partials/header-partial.php";
@@ -10,7 +13,6 @@ if (!isset($_SESSION['customer'])) {
     header("location: ./users/customers/customers-sign-in.php");
 }
 
-$pageTitle = basename(__FILE__, '.php');
 $db = new Database();
 
 $basketProducts = "";

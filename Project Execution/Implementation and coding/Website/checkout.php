@@ -38,11 +38,6 @@ $user = $_SESSION['user'];
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
 
-    <!--Bootstrap cdn-->
-    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"-->
-    <!--          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-
-
     <!-- Custom styles for this template -->
     <link href="./assets/css/app.css" rel="stylesheet">
     <link href="./assets/css/checkout.css" rel="stylesheet">
@@ -56,7 +51,6 @@ $user = $_SESSION['user'];
         <h2>Checkout form</h2>
     </div>
 
-    <h4 class="mb-3">Billing address</h4>
     <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="POST" class="needs-validation" novalidate>
         <?php $count = 1; ?>
         <input type="hidden" name="cmd" value="_cart">
@@ -72,8 +66,10 @@ $user = $_SESSION['user'];
             <?php $product = getProduct($db, $basketProduct->PRODUCT_ID); ?>
             <input type="hidden" name="item_name_<?php echo $count; ?>"
                    value="<?php echo $product->PRODUCT_NAME; ?>"/>
+            <input type="hidden" name="quantity_<?php echo $count; ?>"
+                   value="<?php echo $basketProduct->QUANTITY; ?>"/>
             <input type="hidden" name="amount_<?php echo $count; ?>"
-                   value="<?php echo number_format($product->RATE, 2); ?>"/>
+                   value="<?php echo number_format($product->RATE, 2) * number_format($basketProduct->QUANTITY); ?>"/>
             <?php ++$count; ?>
         <?php endforeach; ?>
 
@@ -106,26 +102,20 @@ $user = $_SESSION['user'];
         </div>
 
         <div class="mb-3">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                   value="<?php echo $user->ADDRESS; ?>" required>
-            <div class="invalid-feedback">
-                Please enter your shipping address.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-        </div>
-
-        <div class="mb-3">
             <label for="collectionSlot">Collection Slot</label>
             <select class="custom-select d-block w-100" id="collectionSlot" required>
                 <option value="">Choose...</option>
-                <option value="1">10 - 13</option>
-                <option value="2">13 - 16</option>
-                <option value="3">16 - 19</option>
+                <!--determine and display only the slots that is wihtin 24 hours from now-->
+                <?php
+                $query = "SELECT * FROM COLLECTION_SLOTS";
+                $stmt = $db->conn->prepare($query);
+                $stmt->execute();
+                $collectionSlots = $stmt->fetchAll();
+                ?>
+
+                <?php foreach ($collectionSlots as $collectionSlot) : ?>
+                    <option value="<?php echo $collectionSlot->COLLECTION_SLOT_ID; ?>"><?php echo ucfirst($collectionSlot->COLLECTION_TIME); ?></option>
+                <?php endforeach; ?>
             </select>
             <div class="invalid-feedback">
                 Please select a valid slot.
@@ -134,58 +124,10 @@ $user = $_SESSION['user'];
 
         <hr class="mb-4">
 
-        <h4 class="mb-3">Payment</h4>
-
-        <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked
-                       required>
-                <label class="custom-control-label" for="credit">Credit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="debit">Debit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="paypal">Paypal</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="cc-name">Name on card</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">
-                    Name on card is required
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                <div class="invalid-feedback">
-                    Credit card number is required
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <label for="cc-expiration">Expiration</label>
-                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                <div class="invalid-feedback">
-                    Expiration date required
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="cc-expiration">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                <div class="invalid-feedback">
-                    Security code required
-                </div>
-            </div>
-        </div>
-        <hr class="mb-4">
-        <button class="btn btn-dark" type="submit">Continue to checkout</button>
+        <!--        <button class="btn btn-dark" type="submit">Checkout with PayPal</button>-->
+        <button type="submit" name="paypal"><img
+                    src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" border="0"
+                    alt="PayPal Logo"></button>
         <a class="btn btn-dark" href="./cart.php" role="button">Go Back To Cart</a>
         <div id="paypal-button-container"></div>
     </form>

@@ -30,12 +30,6 @@
             </li>
         </ul> <!-- ./nav-list -->
 
-        <!--        <div class="cart-container">-->
-        <!--            <a href="./cart.php">-->
-        <!--                <ion-icon class="shopping-cart-icon" name="cart-outline"></ion-icon>-->
-        <!--            </a>-->
-        <!--        </div>-->
-
         <div class="hamburger-menu">
             <div class="line line-1"></div>
             <div class="line line-2"></div>

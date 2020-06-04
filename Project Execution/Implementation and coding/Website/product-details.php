@@ -88,13 +88,31 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
                                     class="plus"></button>
                         </div>
                     </div>
-                    <button id="<?php echo $product->PRODUCT_ID; ?>" class="cart-btn" name="addToCart" type="<?php if(isset($_SESSION['user'])) echo 'submit'; else echo 'button'?>" value="addToCart">Add To Cart</button>
+                    <button id="<?php echo $product->PRODUCT_ID; ?>" class="cart-btn" name="addToCart"
+                            type="<?php if (isset($_SESSION['user'])) echo 'submit'; else echo 'button' ?>"
+                            value="addToCart">Add To Cart
+                    </button>
                 </form>
 
 
                 <div class="category">
+                    <?php
+                    $query = "select first_name, last_name from users, traders, trader_types, shops, product_categories, products
+                                where users.user_id = traders.user_id
+                                and traders.trader_id = trader_types.trader_id
+                                and trader_types.trader_id = shops.trader_id
+                                and trader_types.trader_type_id = shops.trader_type_id
+                                and shops.shop_id = product_categories.shop_id
+                                and product_categories.product_category_id = products.product_category_id
+                                and products.product_id = ?";
+                    $stmt = $db->conn->prepare($query);
+                    $stmt->execute([$product->PRODUCT_ID]);
+                    $trader = $stmt->fetch();
+                    ?>
                     <h5>Category: </h5><span
                             class="prod-category light-grey"><?php echo $prodCategory->CATEGORY_NAME; ?></span>
+                    <h5>Trader: </h5><span
+                            class="prod-category light-grey"><?php echo "$trader->FIRST_NAME $trader->LAST_NAME"; ?></span>
                 </div>
             </div>
         </div>

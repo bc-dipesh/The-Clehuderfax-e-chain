@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $query = "UPDATE USERS SET IS_VERIFIED = 1, VERIFICATION_TOKEN = ? WHERE USER_ID = ?";
             $stmt = $db->conn->prepare($query);
             if ($stmt->execute([null, $user->USER_ID])) {
-                // since user has verified the email-address also add the user to trader and trader type
+                // since user has verified the email-address update database with his details
                 // first create new trader entry
                 $query = "INSERT INTO TRADERS (USER_ID) VALUES (?)";
                 $stmt = $db->conn->prepare($query);
@@ -56,6 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $query = "INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (?, ?, ?)";
                 $stmt = $db->conn->prepare($query);
                 $stmt->execute([$trader->TRADER_ID, $type, $description]);
+
+                // now assign trader a new shop
+                $shopName = "$user->FIRST_NAME $user->LAST_NAME Shop";
+                $query = "INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_NAME) VALUES (?, ?, ?)";
+                $stmt = $db->conn->prepare($query);
+                $stmt->execute([$trader->TRADER_ID, $type, $shopName]);
 
                 $_SESSION['msg'] = "Thank you for verifying your email address. We hope that you enjoy our services.";
                 header("location: ../../../users/traders/traders-sign-in.php");
