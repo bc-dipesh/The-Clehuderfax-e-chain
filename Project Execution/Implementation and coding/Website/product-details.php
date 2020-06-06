@@ -69,7 +69,32 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
                 <div class="description">
                     <h1><?php echo $product->PRODUCT_NAME; ?></h1>
                     <p>$<?php echo $product->RATE; ?></p>
-                    <p><?php echo $product->DESCRIPTION; ?></p>
+
+                    <div class="category">
+                        <?php
+                        $query = "select first_name, last_name from users, traders, trader_types, shops, product_categories, products
+                                where users.user_id = traders.user_id
+                                and traders.trader_id = trader_types.trader_id
+                                and trader_types.trader_id = shops.trader_id
+                                and trader_types.trader_type_id = shops.trader_type_id
+                                and shops.shop_id = product_categories.shop_id
+                                and product_categories.product_category_id = products.product_category_id
+                                and products.product_id = ?";
+                        $stmt = $db->conn->prepare($query);
+                        $stmt->execute([$product->PRODUCT_ID]);
+                        $trader = $stmt->fetch();
+                        ?>
+                        <p>Category: <span
+                                    class="prod-category light-grey"><?php echo $prodCategory->CATEGORY_NAME; ?></span>
+                        </p>
+                        <p>Trader: <span
+                                    class="prod-category light-grey"><?php echo "$trader->FIRST_NAME $trader->LAST_NAME"; ?></span>
+                        </p>
+                    </div>
+
+                    <p>Allergy Info: <span class="prod-category light-grey"><?php echo $product->ALLERGY_INFO; ?></span>
+                    </p>
+
                     <p>Maximum order: <span id="maxOrder"><?php echo $product->MAX_ORDER; ?></span></p>
                 </div>
 
@@ -94,26 +119,6 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
                     </button>
                 </form>
 
-
-                <div class="category">
-                    <?php
-                    $query = "select first_name, last_name from users, traders, trader_types, shops, product_categories, products
-                                where users.user_id = traders.user_id
-                                and traders.trader_id = trader_types.trader_id
-                                and trader_types.trader_id = shops.trader_id
-                                and trader_types.trader_type_id = shops.trader_type_id
-                                and shops.shop_id = product_categories.shop_id
-                                and product_categories.product_category_id = products.product_category_id
-                                and products.product_id = ?";
-                    $stmt = $db->conn->prepare($query);
-                    $stmt->execute([$product->PRODUCT_ID]);
-                    $trader = $stmt->fetch();
-                    ?>
-                    <h5>Category: </h5><span
-                            class="prod-category light-grey"><?php echo $prodCategory->CATEGORY_NAME; ?></span>
-                    <h5>Trader: </h5><span
-                            class="prod-category light-grey"><?php echo "$trader->FIRST_NAME $trader->LAST_NAME"; ?></span>
-                </div>
             </div>
         </div>
 

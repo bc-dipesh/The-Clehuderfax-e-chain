@@ -107,7 +107,7 @@ $user = $_SESSION['user'];
                 <option value="">Choose...</option>
                 <!--determine and display only the slots that is wihtin 24 hours from now-->
                 <?php
-                $query = "SELECT * FROM COLLECTION_SLOTS";
+                $query = "SELECT * FROM COLLECTION_SLOTS WHERE UPPER(COLLECTION_DAY) != TRIM(TO_CHAR(SYSDATE, 'DAY'))";
                 $stmt = $db->conn->prepare($query);
                 $stmt->execute();
                 $collectionSlots = $stmt->fetchAll();

@@ -2,7 +2,7 @@
 session_start();
 $pageTitle = basename(__FILE__, ".php");
 
-if (!isset($_SESSION['trader']) and !isset($_SESSION['updateBtn'])) {
+if (!isset($_SESSION['trader']) and !isset($_SESSION['addBtn'])) {
     header("location: ../../../users/traders/traders-sign-in.php");
 }
 

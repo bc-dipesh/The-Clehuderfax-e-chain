@@ -12,6 +12,13 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    <!-- Nav Item - Profile -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./profile.php">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profile</span></a>
+    </li>
+
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="./traders-dashboard.php">
@@ -35,6 +42,7 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Add Product</span></a>
     </li>
+
     <!-- Nav Item - Back to website -->
     <li class="nav-item active">
         <a class="nav-link" href="../../index.php">

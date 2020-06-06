@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $query = "INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_NAME) VALUES (?, ?, ?)";
                 $stmt = $db->conn->prepare($query);
                 $stmt->execute([$trader->TRADER_ID, $type, $shopName]);
-
+// TODO: send email to admin.
                 $_SESSION['msg'] = "Thank you for verifying your email address. We hope that you enjoy our services.";
                 header("location: ../../../users/traders/traders-sign-in.php");
             } else {

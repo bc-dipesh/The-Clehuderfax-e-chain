@@ -46,7 +46,7 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                                                alt=""></a>
                 <h3><?php echo $items[$i]['PRODUCT_NAME']; ?></h3>
                 <p class="price light-grey">$<?php echo $items[$i]['RATE']; ?></p>
-                <p><?php echo $items[$i]['DESCRIPTION']; ?></p>
+<!--                <p>--><?php //echo $items[$i]['DESCRIPTION']; ?><!--</p>-->
                 <button id="<?php echo $items[$i]['PRODUCT_ID']; ?>" type="button" class="add-to-cart-btn">Add to Cart</button>
             </div>
         <?php endfor; ?>

@@ -172,6 +172,7 @@ main .product-card {
     flex-direction: column;
     text-align: center;
     border: 2px solid #EFEFEF;
+    justify-content: space-between;
 }
 
 main .product-card:hover {
