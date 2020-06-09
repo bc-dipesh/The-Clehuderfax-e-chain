@@ -25,36 +25,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // get the user from the database.
         $user = getUserWithEmail($db, $email);
 
-        // verify the password.
-        $result = password_verify($password, $user->PASSWORD);
+        // get the customer.
+        $customer = getCustomerWithUserId($db, $user->USER_ID);
 
-        if ($result) {
-            if ($user->IS_VERIFIED == false) {
-                // redirect user to login prompting him/her to verify email first
-                $_SESSION['error'] = "Please verify your email before logging in.";
-                header("location: ../../../users/customers/customers-sign-in.php");
+        if ($user->USER_ID == $customer->USER_ID and $user->USER_ID != 0) {
+
+            // verify the password.
+            $result = md5($password) == ($user->PASSWORD);
+
+            if ($result) {
+                if (!$user->IS_VERIFIED) {
+                    // redirect user to login prompting him/her to verify email first
+                    $_SESSION['error'] = "Please verify your email before logging in.";
+                    header("location: ../../../users/customers/customers-sign-in.php");
+                    exit();
+                } else {
+                    // ... check if account is deactivated by the admin.
+                    if (!$user->ACCOUNT_STATUS) {
+                        $_SESSION['error'] = "Your account has been deactivated by the admin please contact us through the contact page.";
+                        header("location: ../../../users/customers/customers-sign-in.php");
+                        exit();
+                    }
+                    // if verified set the customer session and grab his/her basket products if there is any
+                    // get required data
+                    $basket = getBasketWithCustomerId($db, $customer->CUSTOMER_ID);
+                    $basketProducts = getBasketProductsWithBasketId($db, $basket->BASKET_ID);
+
+                    // set session data
+                    $_SESSION['user'] = $user;
+                    $_SESSION['customer'] = $customer;
+                    $_SESSION['basket'] = $basket;
+                    $_SESSION['basketProducts'] = $basketProducts;
+                    $_SESSION['loginMsg'] = "You have successfully logged in.";
+
+                    header("location: ../../../index.php");
+                    exit();
+                }
             } else {
-                // if verified set the customer session and grab his/her basket products if there is any
-                // get required data
-                $customer = getCustomerWithUserId($db, $user->USER_ID);
-                $basket = getBasketWithCustomerId($db, $customer->CUSTOMER_ID);
-                $basketProducts = getBasketProductsWithBasketId($db, $basket->BASKET_ID);
-
-                // set session data
-                $_SESSION['user'] = $user;
-                $_SESSION['customer'] = $customer;
-                $_SESSION['basket'] = $basket;
-                $_SESSION['basketProducts'] = $basketProducts;
-                $_SESSION['loginMsg'] = "You have successfully logged in.";
-
-                header("location: ../../../index.php");
+                $_SESSION['email'] = $email;
+                $_SESSION['error'] = "Password incorrect.";
+                header("location: ../../../users/customers/customers-sign-in.php");
+                exit();
             }
-        } else {
-            $_SESSION['email'] = $email;
-            $_SESSION['error'] = "Email or password incorrect.";
-            // don't tell the person trying to log in if either the password or email is incorrect
-            header("location: ../../../users/customers/customers-sign-in.php");
         }
+        // ... unregistered user redirect to signup page.
+        $_SESSION['msg'] = "New trader please sign up";
+        header("location: ../../../users/customers/customers-sign-up.php");
+        exit();
     }
 
 }

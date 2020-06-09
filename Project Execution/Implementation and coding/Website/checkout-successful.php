@@ -7,6 +7,7 @@ if (!isset($_SESSION['customer'])) {
 
 // import necessary files
 require_once "./models/Database.php";
+require_once "./functions/customFunctions.php";
 
 if ($_GET["st"] == "Completed") {
     $db = new Database();
@@ -39,6 +40,15 @@ if ($_GET["st"] == "Completed") {
 
             // store the tradersId and their email
             $traders[$user->TRADER_ID] = $user->EMAIL;
+
+            // get the product details
+            $product = getProduct($db, $basketProduct->PRODUCT_ID);
+            $newQuantity = $product->QUANTITY - $basketProduct->QUANTITY;
+
+            // update products stock in database
+            $query = "UPDATE PRODUCTS SET QUANTITY = ? WHERE PRODUCT_ID = ?";
+            $stmt = $db->conn->prepare($query);
+            $stmt->execute([$newQuantity, $product->PRODUCT_ID]);
         }
 
         $traders = array_unique($traders);

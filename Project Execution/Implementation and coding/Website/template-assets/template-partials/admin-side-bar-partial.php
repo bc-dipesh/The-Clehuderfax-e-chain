@@ -1,8 +1,8 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion shadow" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./traders-dashboard.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./admins-dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-user"></i>
         </div>
@@ -16,17 +16,31 @@
     <li class="nav-item active">
         <a class="nav-link" href="./admins-dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span><?php echo $_SESSION['user']->FIRST_NAME . " "; ?>Dashboard</span></a>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Nav Item - Profile -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./profile.php">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profile</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Nav Item - User Tables -->
+    <!-- Nav Item - Users -->
     <li class="nav-item active">
         <a class="nav-link" href="./users.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Users</span></a>
+    </li>
+
+    <!-- Nav Item - Back to website -->
+    <li class="nav-item active">
+        <a class="nav-link" href="../../index.php">
+            <i class="fas fa-fw fa-arrow-left"></i>
+            <span>Back to website</span></a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->

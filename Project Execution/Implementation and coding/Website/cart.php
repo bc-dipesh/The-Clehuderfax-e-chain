@@ -66,7 +66,6 @@ $basketProducts = $_SESSION['basketProducts'];
                         </div>
                         <div class="product-details">
                             <div class="product-title"><?php echo $product->PRODUCT_NAME; ?></div>
-                            <p class="product-description"><?php echo $product->DESCRIPTION; ?></p>
                         </div>
                         <div class="product-price"><?php echo $product->RATE; ?></div>
                         <div class="product-quantity">
@@ -84,10 +83,6 @@ $basketProducts = $_SESSION['basketProducts'];
                     </div>
                     <?php $totalAmount += number_format($amount, 2); ?>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <ul class="nav-item">
-                    <a class="nav-link" href="./shop.php">Cart is empty click here to start shopping</a>
-                </ul>
             <?php endif; ?>
 
             <div class="totals">

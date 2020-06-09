@@ -29,6 +29,7 @@
                             <option value="5">Fishmonger</option>
                         </select>
                     </div>
+
                     <?php if (isset($_SESSION['invalid']['traderType'])) : ?>
                         <div class="alert alert-danger" role="alert">
                             <?php echo $_SESSION['invalid']['traderType']; ?>

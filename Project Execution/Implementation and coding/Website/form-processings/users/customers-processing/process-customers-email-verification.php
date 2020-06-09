@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if ($user) {
             // update the verification flag and token in the database
-            $query = "UPDATE USERS SET IS_VERIFIED = 1, VERIFICATION_TOKEN = ? WHERE USER_ID = ?";
+            $query = "UPDATE USERS SET IS_VERIFIED = 1, ACCOUNT_STATUS = 1, VERIFICATION_TOKEN = ? WHERE USER_ID = ?";
             $stmt = $db->conn->prepare($query);
             if ($stmt->execute([null, $user->USER_ID])) {
                 // since user has verified the email-address also add the user to customer and create a basket

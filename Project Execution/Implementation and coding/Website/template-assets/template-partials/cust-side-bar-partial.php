@@ -12,18 +12,18 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Profile -->
-    <li class="nav-item active">
-        <a class="nav-link" href="./profile.php">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Profile</span></a>
-    </li>
-
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="./customers-dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
+    </li>
+
+    <!-- Nav Item - Profile -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./profile.php">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profile</span></a>
     </li>
 
     <!-- Divider -->

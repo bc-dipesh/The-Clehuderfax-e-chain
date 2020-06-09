@@ -24,28 +24,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // get the user from the database.
         $user = getUserWithEmail($db, $email);
 
-        // verify the password.
-        $result = password_verify($password, $user->PASSWORD);
+        // ... get the trader from the database.
+        $trader = getTraderWithUserId($db, $user->USER_ID);
 
-        if ($result) {
-            if ($user->IS_VERIFIED == false) {
-                // redirect user to login prompting him/her to verify email first
-                $_SESSION['error'] = "Please verify your email before logging in.";
-                header("location: ../../../users/traders/traders-sign-in.php");
+        if ($user->USER_ID == $trader->USER_ID and $user->USER_ID != 0) {
+
+            // verify the password.
+            $result = md5($password)  == ($user->PASSWORD);
+
+            if ($result) {
+                if (!$user->IS_VERIFIED) {
+                    // redirect user to login prompting him/her to verify email first
+                    $_SESSION['error'] = "Please verify your email before logging in.";
+                    header("location: ../../../users/traders/traders-sign-in.php");
+                    exit();
+                } else {
+                    // ... check if account is deactivated by the admin.
+                    if (!$user->ACCOUNT_STATUS) {
+                        $_SESSION['error'] = "Your account has been deactivated by the admin please contact us through the contact page.";
+                        header("location: ../../../users/traders/traders-sign-in.php");
+                        exit();
+                    }
+
+                    // if verified redirect user to the home page
+                    $_SESSION['user'] = $user;
+                    $_SESSION['trader'] = $trader;
+                    $_SESSION['loginMsg'] = "You have successfully logged in.";
+                    header("location: ../../../users/traders/traders-dashboard.php");
+                    exit();
+                }
             } else {
-                // if verified redirect user to the home page
-                $trader = getTraderWithUserId($db, $user->USER_ID);
-                $_SESSION['user'] = $user;
-                $_SESSION['trader'] = $trader;
-                $_SESSION['loginMsg'] = "You have successfully logged in.";
-                header("location: ../../../users/traders/traders-dashboard.php");
+                $_SESSION['email'] = $email;
+                $_SESSION['error'] = "Password incorrect.";
+                header("location: ../../../users/traders/traders-sign-in.php");
+                exit();
             }
-        } else {
-            $_SESSION['email'] = $email;
-            $_SESSION['error'] = "Email or password incorrect.";
-            // don't tell the person trying to log in if either the password or email is incorrect
-            header("location: ../../../users/traders/traders-sign-in.php");
         }
+        // ... unregistered user redirect to signup page.
+        $_SESSION['msg'] = "New customer please sign up";
+        header("location: ../../../users/traders/traders-sign-up.php");
+        exit();
     }
 
 }

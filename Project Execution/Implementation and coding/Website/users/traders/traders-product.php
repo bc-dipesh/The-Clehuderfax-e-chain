@@ -53,6 +53,7 @@ if (!isset($_SESSION['trader'])) {
                                             <th>DELETE</th>
                                             <th>CATEGORY_NAME</th>
                                             <th>PRODUCT_NAME</th>
+                                            <th>IMAGE</th>
                                             <th>DESCRIPTION</th>
                                             <th>RATE</th>
                                             <th>IS_AVAILABLE</th>
@@ -68,6 +69,7 @@ if (!isset($_SESSION['trader'])) {
                                             <th>DELETE</th>
                                             <th>CATEGORY_NAME</th>
                                             <th>PRODUCT_NAME</th>
+                                            <th>IMAGE</th>
                                             <th>DESCRIPTION</th>
                                             <th>RATE</th>
                                             <th>IS_AVAILABLE</th>
@@ -93,6 +95,7 @@ if (!isset($_SESSION['trader'])) {
                                                 </td>
                                                 <td><?php echo getCategoryNameByProductId($db, $product->PRODUCT_ID); ?></td>
                                                 <td><?php echo $product->PRODUCT_NAME; ?></td>
+                                                <td><img src="../../assets/img/products/<?php echo $product->IMAGE; ?>" class="img-thumbnail"></td>
                                                 <td><?php echo $product->DESCRIPTION; ?></td>
                                                 <td>$<?php echo $product->RATE; ?></td>
                                                 <td><?php echo getHumanRepresentation($product->IS_AVAILABLE); ?></td>

@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = trim($_POST['email']);
         $address = trim($_POST['address']);
         $phone = trim($_POST['mobileNumber']);
-        $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);
+        $pass = md5($_POST['pass']);
 
         // generate a random verification token to verify email address
         $token = md5(rand(0, 1000));

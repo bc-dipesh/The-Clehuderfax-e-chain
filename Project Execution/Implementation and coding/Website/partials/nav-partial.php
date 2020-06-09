@@ -28,6 +28,10 @@
                    class="<?php if (strtolower($pageTitle) == 'contact-us') echo 'active'; ?> nav-link underline">Contact
                     Us</a>
             </li>
+            <li class="nav-item">
+                <a href="./cart.php"
+                   class="nav-link"><ion-icon class="shopping-cart-icon" name="cart-outline"></ion-icon></a>
+            </li>
         </ul> <!-- ./nav-list -->
 
         <div class="hamburger-menu">
@@ -37,7 +41,14 @@
         </div> <!-- ./hamburger-menu -->
 
         <ul class="aside-nav-list">
-            <?php if (isset($_SESSION['customer'])) : ?>
+            <?php if (isset($_SESSION['admin'])) : ?>
+                <li class="nav-item">
+                    <a href="./users/admins/admins-dashboard.php" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./users/logout.php" class="nav-link">Logout</a>
+                </li>
+            <?php elseif (isset($_SESSION['customer'])) : ?>
                 <li class="nav-item">
                     <a href="./users/customers/customers-dashboard.php" class="nav-link">Dashboard</a>
                 </li>
@@ -55,6 +66,9 @@
                     <a href="./users/logout.php" class="nav-link">Logout</a>
                 </li>
             <?php else: ?>
+                <li class="nav-item">
+                    <a href="./users/admins/admins-sign-in.php" class="nav-link">Admin Sign in</a>
+                </li>
                 <li class="nav-item">
                     <a href="./users/customers/customers-sign-in.php" class="nav-link">Customer Sign in</a>
                 </li>
