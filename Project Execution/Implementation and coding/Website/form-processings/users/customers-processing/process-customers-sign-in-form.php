@@ -25,15 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // get the user from the database.
         $user = getUserWithEmail($db, $email);
 
-        // get the customer.
-        $customer = getCustomerWithUserId($db, $user->USER_ID);
 
-        if (!$user->IS_VERIFIED) {
+        if (!$user) {
+            // ... unregistered user redirect to signup page.
+            $_SESSION['msg'] = "New customer please sign up";
+            header("location: ../../../users/customers/customers-sign-up.php");
+            exit();
+        }
+
+        if (!$user->IS_VERIFIED and $user) {
             // redirect user to login prompting him/her to verify email first
             $_SESSION['error'] = "Please verify your email before logging in.";
             header("location: ../../../users/customers/customers-sign-in.php");
             exit();
         }
+
+        // get the customer.
+        $customer = getCustomerWithUserId($db, $user->USER_ID);
 
         if ($user->USER_ID == $customer->USER_ID and $user->USER_ID != 0) {
 
@@ -68,9 +76,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
         }
-        // ... unregistered user redirect to signup page.
-        $_SESSION['msg'] = "New customer please sign up";
-        header("location: ../../../users/customers/customers-sign-up.php");
-        exit();
     }
 }

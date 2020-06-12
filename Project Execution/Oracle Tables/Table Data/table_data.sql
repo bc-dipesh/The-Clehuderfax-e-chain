@@ -1,14 +1,10 @@
 -- users data
-INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (10, 'Dipesh', 'BC', 'dipesh.bc@es.cloudfactory.com', null, 'NPJ-12, Banke Gaon', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '10/profile.jpg', 1, 1);
 INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (11, 'John', 'Legend', 'darkbolt32@gmail.com', null, 'Npj-12, Banke Gaon', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '11/profile.jpg', 1, 1);
 INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (12, 'Rajbir', 'Chand', 'kratos31m@gmail.com', null, 'Kathmandu', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '12/profile.jpg', 1, 1);
 INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (13, 'Bijay', 'Giri', 'bijaygiri620@gmail.com', null, 'Mahendranagar, Tinkune', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '13/profile.jpg', 1, 1);
 INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (14, 'Kadamber', 'Verma', 'kadamberverma@gmail.com', null, 'Npj-8, Bhrikutinagar', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '14/profile.jpg', 1, 1);
 INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (15, 'Sushant', 'Teewary', 'sushantteewary4@gmail.com', null, 'Kathmandu', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '15/profile.jpg', 1, 1);
 INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (1, 'TCHFEC', 'ADMIN', 'bcdipeshwork@gmail.com', null, 'NPJ-12, Banke Gaon', '9861591162', '	4d3c54a22a97802627566a24f2dc7c1b', '1/profile.png', 1, 1);
-
--- customers data
-INSERT INTO CUSTOMERS (USER_ID, CUSTOMER_ID) VALUES (10, 10);
 
 -- traders data
 INSERT INTO TRADERS (USER_ID, TRADER_ID) VALUES (11, 10);
@@ -26,6 +22,11 @@ INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (11, 2,
 INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (12, 3, 'Greengrocer Trader');
 INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (13, 4, 'Butcher Trader');
 INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (14, 5, 'Fishmonger Trader');
+
+-- collection slots data
+INSERT INTO COLLECTION_SLOTS (ADMIN_ID, COLLECTION_SLOT_ID, LOCATION, COLLECTION_TIME, MAXIMUM_ORDER, COLLECTION_DAY, AVAILABLE_ORDER) VALUES (10, 1, null, 'Wednesday (10am - 1pm)', 20, 'Wednesday', 20);
+INSERT INTO COLLECTION_SLOTS (ADMIN_ID, COLLECTION_SLOT_ID, LOCATION, COLLECTION_TIME, MAXIMUM_ORDER, COLLECTION_DAY, AVAILABLE_ORDER) VALUES (10, 2, null, 'Thursday (1am - 4pm)', 20, 'Thursday', 20);
+INSERT INTO COLLECTION_SLOTS (ADMIN_ID, COLLECTION_SLOT_ID, LOCATION, COLLECTION_TIME, MAXIMUM_ORDER, COLLECTION_DAY, AVAILABLE_ORDER) VALUES (10, 3, null, 'Friday (4am - 7pm)', 20, 'Friday', 20);
 
 -- shops data
 INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_ID, SHOP_NAME) VALUES (10, 1, 10, 'John Legend Shop');
@@ -410,7 +411,7 @@ INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_A
 VALUES (3, 'Hepworth Farms Local Organic Spring Farm Share', 'No matter the current selection in this Farm Share box, you can rest assured you"ll be getting the freshest, tastiest produce of the season straight from Hudson Valley.', 30.00, 1, 'greengrocer/Hepworth Farms Local Organic Spring Farm Share.jpg', 'No Artificial ripeners used', 1, 10, 500);
 
 INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
-VALUES (3, 'Jalapeño Pepper', 'When we hear the words "hot pepper" the tingle most of us remember is probably from those jalapeño rings that come with a plate of nachos. Small and torpedo-shaped, jalapeños may be pale green, blackish green, or red.', 1.49, 1, 'greengrocer/Jalapeño Pepper.jpg', 'No Artificial ripeners used', 1, 10, 500);
+VALUES (3, 'Jalapeno Pepper', 'When we hear the words "hot pepper" the tingle most of us remember is probably from those jalapeño rings that come with a plate of nachos. Small and torpedo-shaped, jalapeños may be pale green, blackish green, or red.', 1.49, 1, 'greengrocer/Jalapeno Pepper.jpg', 'No Artificial ripeners used', 1, 10, 500);
 
 INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
 VALUES (3, 'Okra, Packaged', 'Okra is a mild-tasting, squashlike little vegetable that makes everything it touches a little thicker.', 4.49, 1, 'greengrocer/Okra, Packaged.jpg', 'No Artificial ripeners used', 1, 10, 500);
@@ -960,17 +961,4 @@ VALUES (5, 'Cooked Octopus Legs', 'A delightful delicacy of the deep, octopus le
 INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
 VALUES (5, 'Whole Octopus, Tenderized', 'A delightful delicacy of the deep, octopus has a tender, meaty flavor that"s a favorite of seafood lovers all over the world. Wild-caught in the Mediterranean, these octopi are tenderized using sea salt, cold water, and a tumbler before being flash-frozen to guarantee a fresh taste.', 10.99, 1, 'fishmonger/Whole Octopus, Tenderized.jpg', 'Raised without antibiotics', 1, 10, 500);
 
--- baskets data
-INSERT INTO BASKETS (BASKET_ID, CUSTOMER_ID, ACTIVE) VALUES (11, 10, 1);
-INSERT INTO BASKETS (BASKET_ID, CUSTOMER_ID, ACTIVE) VALUES (10, 10, 0);
-
--- basket products data
-INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (304, 10, 1);
-INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (378, 10, 2);
-INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (665, 10, 3);
-INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (427, 10, 4);
-INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (650, 10, 5);
-
--- payments data
-INSERT INTO PAYMENTS (BASKET_ID, INVOICE_ID, PAYMENT_ID, PAYMENT_METHOD, AMOUNT, PAYMENT_DATE) VALUES (10, null, 10, 'PayPal', 45.35, TO_TIMESTAMP('2020-06-12 21:28:17.74', 'YYYY-MM-DD HH24:MI:SS.FF2'));
 
