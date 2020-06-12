@@ -69,7 +69,7 @@ $user = $_SESSION['user'];
             <input type="hidden" name="quantity_<?php echo $count; ?>"
                    value="<?php echo $basketProduct->QUANTITY; ?>"/>
             <input type="hidden" name="amount_<?php echo $count; ?>"
-                   value="<?php echo number_format($product->RATE, 2) * number_format($basketProduct->QUANTITY); ?>"/>
+                   value="<?php echo number_format($product->RATE, 2); ?>"/>
             <?php ++$count; ?>
         <?php endforeach; ?>
 
@@ -125,9 +125,7 @@ $user = $_SESSION['user'];
         <hr class="mb-4">
 
         <!--        <button class="btn btn-dark" type="submit">Checkout with PayPal</button>-->
-        <button type="submit" name="paypal"><img
-                    src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" border="0"
-                    alt="PayPal Logo"></button>
+        <button class="btn btn-primary" type="submit" name="paypal">Checkout with paypal</button>
         <a class="btn btn-dark" href="./cart.php" role="button">Go Back To Cart</a>
         <div id="paypal-button-container"></div>
     </form>

@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['basketProducts'] = $basketProducts;
                 $_SESSION['loginMsg'] = "You have successfully logged in.";
 
-                header("location: ../../../index.php");
+                header("location: ../../../users/customers/customers-dashboard.php");
                 exit();
             } else {
                 $_SESSION['email'] = $email;

@@ -16,10 +16,10 @@ foreach ($_SESSION['basketProducts'] as &$basketProduct) {
         $basketProduct->QUANTITY = $quantity;
 
         // update the database
-        $query = "UPDATE BASKET_PRODUCTS SET QUANTITY = ? WHERE PRODUCT_ID = ?";
+        $query = "UPDATE BASKET_PRODUCTS SET QUANTITY = ? WHERE PRODUCT_ID = ? AND BASKET_ID = ?";
         $stmt = $db->conn->prepare($query);
 
-        $stmt->execute([$quantity, $productId]);
+        $stmt->execute([$quantity, $productId, $_SESSION['basket']->BASKET_ID]);
     }
 }
 

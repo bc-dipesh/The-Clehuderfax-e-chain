@@ -21,7 +21,8 @@
 
             <div class="signin-form">
                 <h2 class="form-title">Customer Sign in</h2>
-                <form action="../../form-processings/users/customers-processing/process-customers-sign-in-form.php" method="POST" class="register-form" id="login-form">
+                <form action="../../form-processings/users/customers-processing/process-customers-sign-in-form.php"
+                      method="POST" class="register-form" id="login-form">
                     <div class="form-group">
                         <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
                         <input type="email" name="email" id="email" placeholder="Your Email" required

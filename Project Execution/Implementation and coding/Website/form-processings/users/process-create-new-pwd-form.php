@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // store all the messages in the session
     $_SESSION['invalid'] = $invalid;
-    $_SESSION['valid'] = $valid;
+    $_SESSION['valid'] = $valid;c
 
     // if there are no errors then store the record in the database
     if (empty($_SESSION['invalid'])) {
-        $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);
+        $pass = md5($_POST['pass']);
 
         // store new password in database
         $query = "UPDATE USERS SET PASSWORD = ? WHERE EMAIL = ?";

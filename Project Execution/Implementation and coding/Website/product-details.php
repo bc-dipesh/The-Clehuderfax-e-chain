@@ -133,7 +133,7 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
             </ul>
             <div class="content">
                 <p x-show="tab === 'tab1'"><?php echo $product->DESCRIPTION; ?></p>
-                <p x-show="tab === 'tab2'">Hello</p>
+                <p x-show="tab === 'tab2'">No Review Available</p>
             </div>
         </div>
 
@@ -141,8 +141,8 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
 </main>
 
 <!--Page specific java script-->
-<script src="./assets/js/counter.js"></script>
 <script src="./assets/js/add-to-cart-with-quantity.js"></script>
+<script src="./assets/js/counter.js"></script>
 
 <!--import footer from partials-->
 <?php require_once "./partials/footer-partial.php"; ?>

@@ -122,7 +122,8 @@ if ($_GET["st"] == "Completed") {
         unset($_SESSION['basketProducts']);
         $_SESSION['basketProducts'] = "";
 
-        echo "Payment was successfull.";
+        $_SESSION['paymentStatus'] = "Successful";
+        header("location: ./users/customers/customers-dashboard.php");
     } catch (PDOException $ex) {
         echo $ex->getMessage();
     }

@@ -112,7 +112,7 @@ if (!isset($_SESSION['customer'])) {
                             <label for="email"
                                    class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
-                                <input name="email" id="email" class="form-control" type="email"
+                                <input readonly name="email" id="email" class="form-control" type="email"
                                        value="<?php echo $_SESSION['user']->EMAIL; ?>">
                             </div>
                         </div>

@@ -6,7 +6,7 @@ $pageTitle = basename(__FILE__, '.php');
 require_once "./partials/header-partial.php";
 
 if (isset($_GET['prodToSearch'])) {
-    $searchProd = $_GET['prodToSearch'];
+    $searchProd = strtolower($_GET['prodToSearch']);
 } else {
     $searchProd = "";
 }
@@ -66,7 +66,7 @@ if (isset($_GET['minPrice']) and isset($_GET['maxPrice'])) {
             </li>
             <li class="nav-item link-separator">/</li>
             <li class="nav-item">
-                <a class="nav-link">Products</a>
+                <a href="./shop.php" class="nav-link">Products</a>
             </li>
             <li class="nav-item link-separator">/</li>
             <li class="nav-item">

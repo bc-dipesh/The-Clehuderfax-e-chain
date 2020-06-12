@@ -109,7 +109,6 @@ $basketProducts = $_SESSION['basketProducts'];
 
     <!--page specific js-->
     <script src="./assets/js/cart-1.js"></script>
-    <!--    <script src="./assets/js/cart.js"></script>-->
 
     <!--import footer from partials-->
 <?php require_once "./partials/footer-partial.php"; ?>

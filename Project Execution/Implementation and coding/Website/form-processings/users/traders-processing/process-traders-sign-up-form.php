@@ -137,11 +137,12 @@ VALUES(?, ?, ?, ?, ?, ?, ?)";
             // send the email
             $to = $email;
             $subject = "Email Verification";
-            $message = "
-            Thanks for signing up in The Clechuderfax E-chain!
-            Your account has been created, to access more features of our website please verify your email address by clicking the link below.
-            'http://localhost/the-clechuderfax-e-chain/form-processings/users/traders-processing/process-traders-email-verification.php?type=$traderType&email=$email&token=$token'
-            ";
+            $message = "<html><body>
+<p>Dear</p>
+<p>We're glad that you've joined The Clechuderfax E-chain but it seems that you haven't started selling your products yet.</p>
+<p>Click the link below to start selling by verifying your email</p><br>
+'http://localhost/the-clechuderfax-e-chain/form-processings/users/traders-processing/process-traders-email-verification.php?type=$traderType&email=$email&token=$token'
+ </body></html>";
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
             $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";

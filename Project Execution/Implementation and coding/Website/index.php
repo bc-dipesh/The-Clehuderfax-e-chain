@@ -125,6 +125,10 @@ require_once "./partials/header-partial.php";
 
     <!-- page specific js -->
     <script src="./assets/js/carousel.js"></script>
+<?php if (isset($_GET['logoutMsg'])) : ?>
+    <script>alertify.alert('Alert', 'You have been successfully logged out').set({transition: 'fade'});</script>
+    <?php unset($_GET['logoutMsg']); ?>
+<?php endif; ?>
 
     <!-- import footer from partials -->
 <?php require_once "./partials/footer-partial.php"; ?>

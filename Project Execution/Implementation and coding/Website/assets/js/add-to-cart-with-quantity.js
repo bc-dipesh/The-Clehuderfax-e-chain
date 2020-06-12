@@ -1,3 +1,5 @@
+const alert = import("./alertify.min.js");
+
 // add items to cart with quantity
 const addToCartBtn = document.querySelector('.cart-btn');
 const quantity = document.getElementById("quantity");
@@ -17,7 +19,7 @@ function addItemsToCart(event) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onload = function() {
-        alert(this.responseText);
+        alertify.alert('Alert', this.responseText).set({transition: 'fade'});
     }
 
     // send request

@@ -39,12 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $_SESSION['msg'] = "Thank you for verifying your email address. We hope that you enjoy our services.";
                 header("location: ../../../users/customers/customers-sign-in.php");
             } else {
-                $_SESSION['msg'] = "There was a problem while we were verifying your request, please try again.";
+                $_SESSION['msg'] = "There was a problem while we were verifying your email address, please try again.";
                 header("location: ../../../users/customers/customers-sign-in.php");
             }
         }
     }
 }
-
-
-// $2y$10$uK3pf6T9MtHy30Ao3HpjvOQA00gsePHVNpAcdAml92tf0BIStbaHi

@@ -36,6 +36,20 @@
             <span>Users</span></a>
     </li>
 
+    <!-- Nav Item - Users -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./customers.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Customers</span></a>
+    </li>
+
+    <!-- Nav Item - Traders -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./traders.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Traders</span></a>
+    </li>
+
     <!-- Nav Item - Back to website -->
     <li class="nav-item active">
         <a class="nav-link" href="../../index.php">

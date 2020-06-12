@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         // ... unregistered user redirect to signup page.
-        $_SESSION['msg'] = "New customer please sign up";
+        $_SESSION['msg'] = "New trader please sign up";
         header("location: ../../../users/traders/traders-sign-up.php");
         exit();
     }

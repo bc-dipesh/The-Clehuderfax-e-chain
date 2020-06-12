@@ -11,9 +11,9 @@ function prepareStatement($db, $query)
 function getNewTotalQuantity($db, $productQuantity, $productId, $product)
 {
     // get the current product quantity in the customer basket product
-    $query = "SELECT QUANTITY FROM BASKET_PRODUCTS WHERE PRODUCT_ID = $productId";
+    $query = "SELECT QUANTITY FROM BASKET_PRODUCTS WHERE PRODUCT_ID = $productId AND BASKET_ID = ?";
     $stmt = prepareStatement($db, $query);
-    $stmt->execute();
+    $stmt->execute([$_SESSION['basket']->BASKET_ID]);
     $basketProduct = $stmt->fetch();
 
     // calculate new total
@@ -71,10 +71,10 @@ if (isset($_SESSION['customer'])) {
         // calculate new quantity
         $newTotalProdQuantity = getNewTotalQuantity($db, $productQuantity, $productId, $product);
 
-        $query = "UPDATE BASKET_PRODUCTS SET QUANTITY = ? WHERE PRODUCT_ID = ?";
+        $query = "UPDATE BASKET_PRODUCTS SET QUANTITY = ? WHERE PRODUCT_ID = ? AND BASKET_ID = ?";
         $stmt = prepareStatement($db, $query);
 
-        if ($stmt->execute([$newTotalProdQuantity, $productId])) {
+        if ($stmt->execute([$newTotalProdQuantity, $productId, $_SESSION['basket']->BASKET_ID])) {
             $responseMsg = "Successfully updated $product->PRODUCT_NAME quantity in the cart.";
         } else {
             $responseMsg = "Error updating $product->PRODUCT_NAME quantity in the cart.";
