@@ -1,3 +1,47 @@
+-- users data
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (10, 'Dipesh', 'BC', 'dipesh.bc@es.cloudfactory.com', null, 'NPJ-12, Banke Gaon', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '10/profile.jpg', 1, 1);
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (11, 'John', 'Legend', 'darkbolt32@gmail.com', null, 'Npj-12, Banke Gaon', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '11/profile.jpg', 1, 1);
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (12, 'Rajbir', 'Chand', 'kratos31m@gmail.com', null, 'Kathmandu', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '12/profile.jpg', 1, 1);
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (13, 'Bijay', 'Giri', 'bijaygiri620@gmail.com', null, 'Mahendranagar, Tinkune', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '13/profile.jpg', 1, 1);
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (14, 'Kadamber', 'Verma', 'kadamberverma@gmail.com', null, 'Npj-8, Bhrikutinagar', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '14/profile.jpg', 1, 1);
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (15, 'Sushant', 'Teewary', 'sushantteewary4@gmail.com', null, 'Kathmandu', '9861591162', '4d3c54a22a97802627566a24f2dc7c1b', '15/profile.jpg', 1, 1);
+INSERT INTO USERS (USER_ID, FIRST_NAME, LAST_NAME, EMAIL, VERIFICATION_TOKEN, ADDRESS, PHONE_NUMBER, PASSWORD, PROFILE_IMG, IS_VERIFIED, ACCOUNT_STATUS) VALUES (1, 'TCHFEC', 'ADMIN', 'bcdipeshwork@gmail.com', null, 'NPJ-12, Banke Gaon', '9861591162', '	4d3c54a22a97802627566a24f2dc7c1b', '1/profile.png', 1, 1);
+
+-- customers data
+INSERT INTO CUSTOMERS (USER_ID, CUSTOMER_ID) VALUES (10, 10);
+
+-- traders data
+INSERT INTO TRADERS (USER_ID, TRADER_ID) VALUES (11, 10);
+INSERT INTO TRADERS (USER_ID, TRADER_ID) VALUES (12, 11);
+INSERT INTO TRADERS (USER_ID, TRADER_ID) VALUES (13, 12);
+INSERT INTO TRADERS (USER_ID, TRADER_ID) VALUES (14, 13);
+INSERT INTO TRADERS (USER_ID, TRADER_ID) VALUES (15, 14);
+
+-- admins data
+INSERT INTO ADMINS (USER_ID, ADMIN_ID) VALUES (1, 10);
+
+-- trader types data
+INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (10, 1, 'Bakery Trader');
+INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (11, 2, 'Delicatessen Trader');
+INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (12, 3, 'Greengrocer Trader');
+INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (13, 4, 'Butcher Trader');
+INSERT INTO TRADER_TYPES (TRADER_ID, TRADER_TYPE_ID, DESCRIPTION) VALUES (14, 5, 'Fishmonger Trader');
+
+-- shops data
+INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_ID, SHOP_NAME) VALUES (10, 1, 10, 'John Legend Shop');
+INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_ID, SHOP_NAME) VALUES (11, 2, 11, 'Rajbir Chand Shop');
+INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_ID, SHOP_NAME) VALUES (12, 3, 12, 'Bijay Giri Shop');
+INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_ID, SHOP_NAME) VALUES (13, 4, 13, 'Kadamber Verma Shop');
+INSERT INTO SHOPS (TRADER_ID, TRADER_TYPE_ID, SHOP_ID, SHOP_NAME) VALUES (14, 5, 14, 'Sushant Teewary Shop');
+
+-- product categories data
+INSERT INTO PRODUCT_CATEGORIES (SHOP_ID, PRODUCT_CATEGORY_ID, CATEGORY_NAME, DESCRIPTION) VALUES (10, 1, 'Bakery', 'Bakery products will be sold under this shop.');
+INSERT INTO PRODUCT_CATEGORIES (SHOP_ID, PRODUCT_CATEGORY_ID, CATEGORY_NAME, DESCRIPTION) VALUES (11, 2, 'Delicatessen', 'Delicatessen products will be sold under this shop.');
+INSERT INTO PRODUCT_CATEGORIES (SHOP_ID, PRODUCT_CATEGORY_ID, CATEGORY_NAME, DESCRIPTION) VALUES (12, 3, 'Greengrocer', 'Greengrocer products will be sold under this shop.');
+INSERT INTO PRODUCT_CATEGORIES (SHOP_ID, PRODUCT_CATEGORY_ID, CATEGORY_NAME, DESCRIPTION) VALUES (13, 4, 'Butcher', 'Butcher products will be sold under this shop.');
+INSERT INTO PRODUCT_CATEGORIES (SHOP_ID, PRODUCT_CATEGORY_ID, CATEGORY_NAME, DESCRIPTION) VALUES (14, 5, 'Fishmonger', 'Fishmonger products will be sold under this shop.');
+
+-- products data
 -- Bakery Data
 INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
 VALUES (1, 'Macadamia Coconut Cookies', 'These cookies garnered a collective ''Mmmm!'' when we first tasted them. Decadent macadamia nuts, chunks of rich chocolate and chewy flaked coconut are suspended in buttery cookie dough. Perfect for dunking in a tall, cold glass of milk — also perfect for hoarding.', 4.99, 1, 'bakery/product1.jpg', 'N/A', 1, 10, 500);
@@ -361,6 +405,239 @@ VALUES (2, 'Citterio Fresco Rosmarino (Rosemary Ham)', 'This Citterio ham is mas
 
 
 
+-- Greengrocer Data
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Hepworth Farms Local Organic Spring Farm Share', 'No matter the current selection in this Farm Share box, you can rest assured you"ll be getting the freshest, tastiest produce of the season straight from Hudson Valley.', 30.00, 1, 'greengrocer/Hepworth Farms Local Organic Spring Farm Share.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Jalapeño Pepper', 'When we hear the words "hot pepper" the tingle most of us remember is probably from those jalapeño rings that come with a plate of nachos. Small and torpedo-shaped, jalapeños may be pale green, blackish green, or red.', 1.49, 1, 'greengrocer/Jalapeño Pepper.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Okra, Packaged', 'Okra is a mild-tasting, squashlike little vegetable that makes everything it touches a little thicker.', 4.49, 1, 'greengrocer/Okra, Packaged.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Cilantro', 'With its sweet, bright aroma, fresh cilantro is used in Latin American and Asian cooking. Use this bold herb (AKA coriander or Chinese parsley) raw or cooked in soups, salads, and stews.', 2.00, 1, 'greengrocer/Cilantro.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Ark Foods Green Shishito Peppers', 'Skip the chips and salsa and grab these crowd-pleasers instead. Long prized by top chefs, they"ve become a wildly popular appetizer and are the perfect addition at your next party.', 6.00, 1, 'greengrocer/Ark Foods Green Shishito Peppers.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Chinese Long Beans', 'Chinese long beans should be picked young while it is at its most crisp, sweet and tender. Young beans develop within sixty days of cultivation, and the long pods grow in pairs from the stem.', 6.50, 1, 'greengrocer/Chinese Long Beans.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Red Cabbage', 'The purple-robed prince among cabbages. It has an intense musky flavor and sweet snappiness. Red cabbage can be stewed, braised, or even curried.', 3.50, 1, 'greengrocer/Organic Red Cabbage.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Japanese Sweet Potato', 'Nutty and mild, Japanese sweet potatoes have a thin red skin and dense white flesh. They are a bit drier and less sweet than the deeply orange vegetable you may also know as a yam or sweet potato. Often baked, candied or made into pies, they also make a delicious side dish when scalloped with sliced apples and a creamy sauce.', 7.49, 1, 'greengrocer/Organic Japanese Sweet Potato.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Asparagus', 'Sweet, delicate, and grassy-green, with full-flavored earthiness, asparagus is a true taste of spring. The tender, bright green stalks add instant elegance to any meal. Their heft stands up well to stronger seasonings, higher heat, and longer cooking, and they pack more flavor per inch.', 8.49, 1, 'greengrocer/Organic Asparagus.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Jumbo Artichoke', 'Woodsy, green, and celery-like, but even more delicate. The sweet taste of an artichoke captures the essence of a garden. Only eat the tender bottoms of the outer leaves. As you peel them away, you come to the choke. Once you scrape away the furry, inedible part, savor the flavor-packed, sweet, pale green heart.', 6.40, 1, 'greengrocer/Jumbo Artichoke.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Hass Avocado', 'With its irresistibly buttery flavor, the Hass sets the avocado standard. It also wins the popularity contest, making up 75% of the American crop. A luscious slice of Hass avocado really pumps up the taste of burritos, burgers, salads, and sushi rolls.', 3.49, 1, 'greengrocer/Hass Avocado.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Green Beans', 'Herbal and earthy, firm and crisp, green beans are universal favorites. They are a classic side dish served on their own — simply steam, sauté, or boil them (we like to add a little butter and lemon). Their texture also stands up to long cooking in dishes like casseroles and stews.', 4.00, 1, 'greengrocer/Green Beans.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Broccoli Rabe', 'Broccoli rabe"s flavor-stimulating bitterness tastes like a cross between turnips and kale. It looks like a thinner, leafier version of broccoli. Both the leaves and the florets are edible. One of the most full-flavored greens. Serve with creamy cheeses, sun-dried tomatoes, or spicy sausage.', 6.00, 1, 'greengrocer/Broccoli Rabe.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Broccolette', 'With a slight peppery edge and long, tender stem, broccolette (sometimes known as broccoletti or broccolini) is a cross between broccoli and Chinese kale (gai lan), and it brings new elegance to an old favorite.', 6.00, 1, 'greengrocer/Organic Broccolette.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Broccoli Florets', 'When you think "convenience food," broccoli may not be what springs to mind. But these trimmed crowns are ready for you to chop to your liking for your favorite dish.', 8.00, 1, 'greengrocer/Broccoli Florets.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Cauliflower', 'A vegetable that"s as meaty as a potato but has its own very mild, nutty, cabbage-like flavor. A close relative of broccoli, cauliflower is a bit sweeter and even hardier. We love this versatile vegetable because it absorbs the full flavor of spices. Cauliflower makes the best vegetable curry around.', 5.00, 1, 'greengrocer/Organic Cauliflower.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Baby Bok Choy', 'The super-tender version of grownup bok choy. The crisp, juicy stalks have a mild sweet flavor with a hint of mustard. Halved, quartered, or whole, these babies have a simple, clean garden flavor. They make a delicious traditional Chinese stir-fry with garlic, ginger, and soy sauce.', 5.00, 1, 'greengrocer/Baby Bok Choy.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Green Cabbage', 'The all-time favorite cabbage. It sets the standard. Firmly packed, with smooth, uniformly green skin. The crisp and fleshy leaves are loaded with tart tanginess and a surprisingly pleasing aroma. Green cabbage is loaded with vitamins and antioxidants. Universally popular, because there is so much you can do with it.', 4.49, 1, 'greengrocer/Organic Green Cabbage.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Wild Morel Mushrooms', 'Morels taste of the woods where they grow wild: smoky, earthy, and nutty. They are harvested in the spring and early summer. The honeycomb texture of the morel captures and enhances flavors.', 15.00, 1, 'greengrocer/Wild Morel Mushrooms.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Wild Fiddlehead Ferns', 'Fiddlehead ferns, the coiled tip of young ostrich fern leaves, are a true springtime delicacy. With a chewy bite and a flavor similar to okra crossed with asparagus, fiddleheads are best lightly blanched and then sautéed with a little garlic and olive oil. Be sure to gently remove any brown husk remnants before cooking.', 7.00, 1, 'greengrocer/Wild Fiddlehead Ferns.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Rainbow Carrots', 'Colorful, crunchy and very sweet! These multi-colored carrots are lovely to look at and even lovelier to snack on. We suggest enjoying them raw, either as part of a festive crudité platter or shredded in a salad.', 4.00, 1, 'greengrocer/Organic Rainbow Carrots.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Carrots', 'Intensely sweet. They"re super-crunchy raw. Cut them into disks and flash-steam. Five minutes does the trick.', 4.49, 1, 'greengrocer/Organic Carrots.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Celery', ' Celery is a versatile ingredient with a deep clean taste. It puts the crunch in chicken salad.', 4.49, 1, 'greengrocer/Organic Celery.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Bicolor Corn', 'There are very few foods as sweet and pretty as bicolor corn. These ears crackle with fresh-picked crispness. Boiled or grilled, on the cob or off, there is no wrong way to prepare this corn. Add butter or salt if you must, but we like it plain. The two-color kernels make lovely salads, succotash, muffins, and chowders.', 3.49, 1, 'greengrocer/Bicolor Corn.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Greenhouse Cucumber', 'A truly super cuke. Hothouse cucumbers are green, fresh-tasting, and almost minty. At least a foot long and seedless, they are sometimes called "burpless" because their thin skins are easy to digest. They make the most refined teatime sandwiches.', 3.49, 1, 'greengrocer/Greenhouse Cucumber.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Green Cucumber', 'Cucumbers are green and fresh-tasting, with lots of water, crunch, and a light hint of honeydew melon in the aroma. They have a refreshing quality that reminds us of subtle mint.', 5.00, 1, 'greengrocer/Green Cucumber.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Italian Eggplant', 'If full-sized eggplants carried around family pictures, these very mild, slightly chewy, and earthy babies would surely be in their wallets. Traditionally grown and cooked in Italy, these greenhouse grown eggplants have pale flesh that is even creamier and smoother than that of their larger cousins.', 5.00, 1, 'greengrocer/Italian Eggplant.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Eggplant', 'Lush and creamy, with a mild, earthy flavor, eggplant has the most velvety texture in the vegetable family.', 3.49, 1, 'greengrocer/Eggplant.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Ginger Root', 'Ginger is a multitalented flavoring. It is sweet and floral on your tongue, tickles your sinuses, and warms the back of your throat. Ginger brings out all the flavor in sweet and savory foods.', 3.49, 1, 'greengrocer/Organic Ginger Root.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Basil', 'Sweet, fragrant, and aromatic. The taste of our sweet basil is like a bouquet with hints of mint, clove, and licorice.', 4.49, 1, 'greengrocer/Basil.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Dill', 'Pungent, aromatic, and grassy, with a bracing freshness. Dill"s distinctive bouquet permeates Scandinavian and Eastern European cookery.', 2.49, 1, 'greengrocer/Dill.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Thyme', 'From a quick omelet to a simmered stew, just about any savory dish benefits from fresh thyme"s slightly minty lemon flavor.', 2.49, 1, 'greengrocer/Thyme.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Rosemary', 'Bright and piney, with a slight bitterness that goes well with meat and chicken. This robust herb should be chopped or rubbed.', 1.49, 1, 'greengrocer/Rosemary.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Chives', 'Chives taste like a mild combination of green onion and garlic.', 2.49, 1, 'greengrocer/Chives.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Gem Lettuce', 'Little Gem, a.k.a. sucrine, is your new favorite salad ingredient. It"s sweet, compact lettuce that resembles romaine after you strip away the flimsy outer leaves.', 2.49, 1, 'greengrocer/Gem Lettuce.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Romaine Hearts', 'Romaine is sweet and crunchy at heart. If you find yourself ripping through a whole head of romaine to get to the small, mild, and crisp leaves in the center, let us do the work for you.', 3.49, 1, 'greengrocer/Romaine Hearts.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Red Onions', 'Add crunch and punch to sandwiches, salads, and burgers with these sweet, colorful onions. We relish them raw — they also add a mellow moistness and flavor to frittatas, pasta primavera, and stir-fries.', 2.49, 1, 'greengrocer/Red Onions.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Vidalia Onions', 'Vidalias are called "the world"s sweetest onions" with good reason. Like the "terroir" of a fine wine, their juicy-sweet flavor is the result of the mild climate and unique soil combination found only in a designated area of South Georgia.', 2.49, 1, 'greengrocer/Vidalia Onions.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Bell Pepper', 'If green bells taste fresh and crisp as spring, reds are mellow and fruity as autumn. They are actually green peppers that have been left to ripen. Roasted red bells have a rich, velvety flavor.', 3.49, 1, 'greengrocer/Bell Pepper.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Green Bell Pepper', 'Sweet, juicy, and crunchy. The bell pepper is used more as a vegetable (ingredient or garnish) than a spicy seasoning. Most Cajun recipes begin with sautéed bell peppers and onions. They seem to bring out the best in other ingredients.', 3.49, 1, 'greengrocer/Green Bell Pepper.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Rainbow Pepper Pack', 'For a burst of beautiful color and mildly sweet crunch, look no further than this rainbow pepper pack. We love adding this colorful collection of bell peppers to salad, soup and stir-fry.', 8.49, 1, 'greengrocer/Rainbow Pepper Pack.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Potatoes', 'These tiny taters are essentially just the baby versions of their larger brothers, but youth gives them thin, tasty skins and moist, creamy flesh (thus, the name "creamer").', 5.00, 1, 'greengrocer/Potatoes.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Russet Potato', 'Also known as the Idaho potato. Russet potatoes are starchy with low moisture content, making for fluffy, picture-perfect baked potatoes or french fries.', 2.49, 1, 'greengrocer/Russet Potato.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Hakurei Turnips', 'These sweet and mild japanese turnips are often called the salad turnip because they"re the perfect crunchy and refreshing salad addition. You can also cut them in quarters and eat them raw or lightly sautee them with your favorite greens.', 3.49, 1, 'greengrocer/Hakurei Turnips.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Beets', 'Nature"s sweetest vegetable, ruby-hued beets are always at home in salads and sides, and make a tantalizing addition to savory main courses — try roasting beets with other hardy root vegetables when cooking squab or pheasant.', 4.49, 1, 'greengrocer/Beets.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Heirloom Tomatoes', 'These treasures of the tomato family are full of garden-fresh juiciness, sweetness, and tang. Heirlooms are actually a range of tender, old-fashioned varieties. They come in many shapes, colors, and sizes.', 4.49, 1, 'greengrocer/Heirloom Tomatoes.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Tomatoes', 'Tiny, firm, and sweet, the vine is the key to these tomatoes flavor, keeping them just-picked fresh. These little beauties are perfect for tossing into salads or eating right off the vine for a snack.', 4.49, 1, 'greengrocer/Tomatoes.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Butternut Squash', 'Butternut squash has a lush, sweet flavor that goes naturally with roasts and game. No harvest feast is complete without a steaming bowl of mashed butternut squash. We season it with a touch of nutmeg — an old New England trick.', 5.49, 1, 'greengrocer/Butternut Squash.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Apples', 'True to its name, the honeycrisp is sweet and crunchy with a warm, yellow interior and an attractive yellow-red streaked skin.', 9.49, 1, 'greengrocer/Apples.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Alice Apples', 'The Lady Alice apple began as a chance seedling on a Washington orchard that grew several varieties.', 7.49, 1, 'greengrocer/Alice Apples.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Gala Apples', 'The light golden streaks of color on the outside of the Gala hint at the honey-floral taste on the inside.', 5.49, 1, 'greengrocer/Gala Apples.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Bananas', 'The banana is an anytime, year-round snack. We like them fully yellow with just a dusting of brown freckles. But super-ripe, meltingly sweet bananas and firmer greenish ones have their fans too.', 3.49, 1, 'greengrocer/Bananas.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Organic Bananas', 'The banana is an anytime, year-round snack. We like them fully yellow with just a dusting of brown freckles. But super-ripe, meltingly sweet bananas and firmer greenish ones have their fans too.', 4.49, 1, 'greengrocer/Organic Bananas.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Blueberries', 'Our new Sweetest Batch Blueberries are grown from a small-scale specialty fruit known for its large, extra-sweet flavor. They make your blueberry moments even more memorable and give "having the blues" a whole new meaning.', 9.49, 1, 'greengrocer/Blueberries.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Strawberries', 'Strawberries are consistently the best, sweetest, juiciest strawberries available. This size is the best selling, as it is both convenient for completing a cherished family recipes and for preparing a quick snack straight from the fridge.', 4.49, 1, 'greengrocer/Strawberries.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Red Cherries', 'We dare you to eat just one of these firm, sweet, juicy, slightly tart fruits. We select the premium extra-large Bing cherries for their off-the-charts irresistibility.', 10.00, 1, 'greengrocer/Red Cherries.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Blackberries', 'Blackberries are so versatile — they taste delicious, are sweet and nutritious, and dress up any meal from breakfast to a midnight snack. This pack is the ideal size for snacking throughout the day or for adding to dinner salad to share with your family.', 5.49, 1, 'greengrocer/Blackberries.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Mandarin', 'The Gold Nugget variety of mandarin is a bright-orange beauty with rich, sweet-and-tart flesh. Easy to peel and naturally seedless.', 5.00, 1, 'greengrocer/Mandarin.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Tangerines', 'Super-sweet, juicy, and bumpy-fleshed, Pixie tangerines have only been on the citrus scene for about 20 years.', 8.49, 1, 'greengrocer/Tangerines.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Oranges', 'Extra-big, beautiful, seedless, very low in acid and filled with mild, sweet flesh. These beauties are supremely simple to peel and section. Bursting with freshly picked juiciness, this is the perfect orange to serve to kids. We also like to toss sections into fruit salad.', 9.49, 1, 'greengrocer/Oranges.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Grapefruit', 'This brilliant ruby-colored fruit has a cherry sweetness, a touch of tartness, and almost no bitterness. We love it cut in half or segmented. Juicing is also a real treat.', 6.49, 1, 'greengrocer/Grapefruit.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Navel Orange', 'Oversized, seedless, very low in acid, and filled with mild sweet flesh. These beauties are supremely simple to peel and section. Bursting with freshly picked juiciness, this is the perfect orange to serve to kids.', 6.00, 1, 'greengrocer/Navel Orange.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Lemons', 'Lots of juice and a bright, clear, tart flavor that is suprisingly low in acid. The rind has lots of tang with a bitter note thrown in. We use lemons as a substitute for salt on veggies, a pinch hitter for vinegar in dressings, and an overall flavor booster in both sweet and savory dishes.', 3.00, 1, 'greengrocer/Lemons.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Limes', 'Tangy, clean-flavored, and filled with juice and pulp. These aromatic fruits are more tart and bracing than lemons. Kitchen staples in Mexican and Southeast Asian cuisine, limes are key for margaritas, mojitoes ceviche (citrus-marinated raw fish) and tangy, meringue-topped lime pies.', 1.59, 1, 'greengrocer/Limes.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Grapes', 'Bite one of these and taste liquid autumn. Their full, fleshy flavor makes them a perfect dessert grape. Put them in the freezer and turn them into delicious, elegant one-bite ice pops.', 5.00, 1, 'greengrocer/Grapes.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Green Seedless Grapes', 'Juicy and snappy, with a beautiful balance of sweet and tart. This is the grape that all others are compared to. Rinse and eat them right off the vine for a healthy, refreshing snack any time of day. Freeze them in summer and toss them in drinks!', 5.00, 1, 'greengrocer/Green Seedless Grapes.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Cantaloupe', 'The beige-green skin of the cantaloupe barely hints at the delectably fragrant, orange-colored fruit inside. Sweet but not oversweet, a ripe cantaloupe has a beautiful floral aroma.', 5.00, 1, 'greengrocer/Cantaloupe.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Watermelon', 'All the sweetness, crunch, and knockout juiciness of the classic summertime melon. Cubed or balled, this melon was made for fruit salad.', 9.00, 1, 'greengrocer/Watermelon.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Melon', 'The most versatile melon around, the aptly named honeydew is both sweet and succulent. Its celery-colored flesh looks like a green-tinged precious stone. We like the contrast of flavors when the honeydew is wrapped with a slice of prosciutto.', 5.00, 1, 'greengrocer/Melon.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Pear', 'Melt-in-your-mouth texture with hints of vanilla and apple-blossom honey. Its slightly thick skin hides a creamy-crisp fruit with more tartness than other pears.', 2.49, 1, 'greengrocer/Pear.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Nectarines', 'The nectarine is close kin to a peach. The family resemblance is obvious from the first bite. Its golden flesh is soft and juicy; its flavor is sweet, with just enough tang to keep everything in balance.', 10.00, 1, 'greengrocer/Nectarines.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Plumcot', 'Every variety of plumcot — a plum-apricot hybrid — is as diverse in color as it is in flavor. The Amigo, a variety with bright to dark red skin with flaming red/yellow flesh, has rosy plum flavors with a hint of berry.', 5.00, 1, 'greengrocer/Plumcot.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Mango', 'Mangoes are small, delicately shaped mangoes with golden yellow skins and velvety flesh. Sometimes called ataulfo mangoes or honey mangoes, this fruit has very little fibrous texture and a skinny pit. Chop into salsas and salads or use in poultry and fish dishes.', 5.00, 1, 'greengrocer/Mango.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Kiwifruit', 'With its potato color and Astroturf feel, the unpeeled kiwifruit doesn"t give a clue to the bright green sunburst inside. It tastes like strawberry and honeydew melon.', 5.00, 1, 'greengrocer/Kiwifruit.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Pineapple', 'The Golden is a pineapple that"s been to charm school. The tartness has been reined in just a bit. It is sweeter and mellower than other pineapples.', 5.99, 1, 'greengrocer/Pineapple.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Atkins Mango', 'Its flesh is dense, its taste is tropical and its appeal is universal. The Tommy Atkins, a sturdy offshoot of the Haden, is the most popular mango in the U.S.', 6.00, 1, 'greengrocer/Atkins Mango.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
+VALUES (3, 'Coconut', 'Sometimes called water coconuts, young green coconuts have soft flesh and lots of liquid. In the tropics, people often sip the coconut water inside. To crack one, simply chop a shallow wedge into the tapered top, then pour out the water when the first opening appears (or simply insert a straw to sip straight from the coconut).', 5.00, 1, 'greengrocer/Coconut.jpg', 'No Artificial ripeners used', 1, 10, 500);
+
+
 
 -- Butcher Data
 INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
@@ -682,3 +959,18 @@ VALUES (5, 'Cooked Octopus Legs', 'A delightful delicacy of the deep, octopus le
 
 INSERT INTO PRODUCTS (PRODUCT_CATEGORY_ID, PRODUCT_NAME, DESCRIPTION, RATE, IS_AVAILABLE, IMAGE, ALLERGY_INFO, MIN_ORDER, MAX_ORDER, QUANTITY)
 VALUES (5, 'Whole Octopus, Tenderized', 'A delightful delicacy of the deep, octopus has a tender, meaty flavor that"s a favorite of seafood lovers all over the world. Wild-caught in the Mediterranean, these octopi are tenderized using sea salt, cold water, and a tumbler before being flash-frozen to guarantee a fresh taste.', 10.99, 1, 'fishmonger/Whole Octopus, Tenderized.jpg', 'Raised without antibiotics', 1, 10, 500);
+
+-- baskets data
+INSERT INTO BASKETS (BASKET_ID, CUSTOMER_ID, ACTIVE) VALUES (11, 10, 1);
+INSERT INTO BASKETS (BASKET_ID, CUSTOMER_ID, ACTIVE) VALUES (10, 10, 0);
+
+-- basket products data
+INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (304, 10, 1);
+INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (378, 10, 2);
+INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (665, 10, 3);
+INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (427, 10, 4);
+INSERT INTO BASKET_PRODUCTS (PRODUCT_ID, BASKET_ID, QUANTITY) VALUES (650, 10, 5);
+
+-- payments data
+INSERT INTO PAYMENTS (BASKET_ID, INVOICE_ID, PAYMENT_ID, PAYMENT_METHOD, AMOUNT, PAYMENT_DATE) VALUES (10, null, 10, 'PayPal', 45.35, TO_TIMESTAMP('2020-06-12 21:28:17.74', 'YYYY-MM-DD HH24:MI:SS.FF2'));
+
