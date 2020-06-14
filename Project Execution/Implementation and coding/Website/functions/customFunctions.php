@@ -1,5 +1,5 @@
 <?php
-// database query constatns
+// database query constants
 define("FETCH_USER_WITH_ID", "SELECT * FROM USERS WHERE USER_ID = ?");
 
 define("FETCH_USER_WITH_EMAIL", "SELECT * FROM USERS WHERE EMAIL = ?");
@@ -53,6 +53,8 @@ define("SEARCH_PRODUCTS", "SELECT * FROM PRODUCTS WHERE LOWER(PRODUCT_NAME) LIKE
 define("PASSWORD_RESET", "UPDATE USERS SET PASSWORD = null WHERE USER_ID = ?");
 
 define("SET_VERIFICATION_TOKEN", "UPDATE USERS SET VERIFICATION_TOKEN = ? WHERE USER_ID = ?");
+
+define("LOG_CURRENT_ACTION", "INSERT INTO ACCESS_DETAILS (ACCESSED_USER_ID, ACCESSED_BY_ADMIN_ID, ACTION, ACCESSED_AT) VALUES (?, ?, ?, localtimestamp(2))");
 
 // generates a prepared statement
 function prepareStmt($db, $query)
@@ -164,7 +166,7 @@ function deleteProduct($db, $productId)
 {
     $stmt = prepareStmt($db, DELETE_PRODUCT_WITH_ID);
 
-    return  $stmt->execute([$productId]);
+    return $stmt->execute([$productId]);
 }
 
 // fetch specific trader products
@@ -210,6 +212,28 @@ function searchProducts($db, $searchProd)
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function logCurrentAction($db, $userId, $adminId, $action)
+{
+    $stmt = prepareStmt($db, LOG_CURRENT_ACTION);
+    return $stmt->execute([$userId, $adminId, $action]);
+}
+
+function logErrorToFile($ex)
+{
+    error_log($ex->getMessage() . " " . $ex->getFile() . ", at line " . $ex->getLine() . "\n", 3, '../../../error-logs/errorLogs.txt');
+}
+
+function getProdDiscount($db, $prodId)
+{
+    $stmt = prepareStmt($db, "SELECT PERCENTAGE_OFF FROM OFFERS WHERE PRODUCT_ID = ?");
+    $stmt->execute([$prodId]);
+    $offer = $stmt->fetch();
+    if ($offer) {
+        return number_format($offer->PERCENTAGE_OFF, 2);
+    }
+    return 0.0;
 }
 
 // return human representation of true or false

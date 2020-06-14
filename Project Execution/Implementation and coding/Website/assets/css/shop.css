@@ -185,9 +185,9 @@ main .product-card p {
 }
 
 main .product-img {
-    width: 100%;
+    /*width: 100%;*/
     position: relative;
-    /* width: 100px;      */
+     /*width: 100px;*/
     height: 150px;
     overflow: hidden;
 }

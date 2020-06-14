@@ -26,10 +26,21 @@ $accountStatus = $_POST['accountStatus'];
 // update profile
 $query = "UPDATE USERS SET FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ?, PHONE_NUMBER = ?, ADDRESS = ?, ACCOUNT_STATUS = ? WHERE USER_ID = ?";
 $stmt = $db->conn->prepare($query);
-$result = $stmt->execute([$firstName, $lastName, $email, $phone, $address, $accountStatus, $userId]);
+
+try {
+    $result = $stmt->execute([$firstName, $lastName, $email, $phone, $address, $accountStatus, $userId]);
+} catch (PDOException $ex) {
+    logErrorToFile($ex);
+}
 
 // set session
 if ($result) {
+    try {
+        // log the current action
+        logCurrentAction($db, $userId, $_SESSION['admin']->ADMIN_ID, 'Updated user profile');
+    } catch (PDOException $ex) {
+        logErrorToFile($ex);
+    }
     $_SESSION['updateResponse'] = "Successfully updated $firstName $lastName profile.";
 } else {
     $_SESSION['updateResponse'] = "There was an error while updating $firstName $lastName profile.";

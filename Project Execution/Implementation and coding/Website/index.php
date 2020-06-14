@@ -36,10 +36,14 @@ require_once "./partials/header-partial.php";
             <p class="styled-p">Discover our services!</p>
         </article> <!-- ./main-article -->
         <div class="side-content">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ipsum ipsa, sequi aspernatur
-                temporibus adipisci. Quia excepturi, harum voluptatem veritatis earum eligendi at. Sequi dolorem
-                ratione incidunt vitae reprehenderit qui labore reiciendis totam assumenda! Quod veniam quos
-                distinctio repudiandae maiores.</p>
+            <p>We are an online market chain of bakery items, fishmonger items, greengroceries, butcher items and
+                delicatessen that are sold directly by our registered and verified traders directly to our valued
+                customers.
+                Our objective is to make lives easy for both the traders as well as the customers.
+                Visit our website for a complete list of exclusive's that our suppliers are stocking for the customers
+                for their daily needs.
+                And we hope our customers and traders enjoy their experience to the fullest and with utmost convenience
+                it could ever get.</p>
         </div> <!-- ./side-content -->
     </section> <!-- ./article-wrapper -->
 
@@ -47,22 +51,22 @@ require_once "./partials/header-partial.php";
         <article>
             <img src="./assets/img/products/delicatessen/prod_1.jpg" alt="">
             <h3>Delicatessen</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, voluptatem.</p>
+            <p>Get the most high quality and selected items of the best prepared foods from the most recognised deli retails.</p>
         </article>
         <article>
-            <img src="./assets/img/products/greengrocer/prod_1.jpg" alt="">
+            <img src="./assets/img/products/greengrocer/prod_2.jpg" alt="">
             <h3>Greengrocer</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, soluta?</p>
+            <p>Experience what fresh fruits and vegetables taste and feel like never before.</p>
         </article>
         <article>
             <img src="./assets/img/products/fishmonger/prod_1.jpg" alt="">
             <h3>Fishmonger</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, iure.</p>
+            <p>You could never ever ask for more than enjoying the best experience of having seafood from our trusty suppliers.</p>
         </article>
         <article>
             <img src="./assets/img/products/butcher/prod_1.jpg" alt="">
             <h3>Butcher</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, facere?</p>
+            <p>Beef cubes, boneless pork, kofta's you name it. Get a variety of fresh butcher items the way you want it.</p>
         </article>
     </section>
 

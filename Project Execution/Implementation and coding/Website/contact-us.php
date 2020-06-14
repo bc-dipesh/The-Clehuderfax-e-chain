@@ -70,8 +70,8 @@ if (isset($_GET['msgClass'])) {
 
         <div class="contact-form-container">
             <h2>Get in touch with us</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio veniam mollitia eaque facilis quisquam vero
-                explicabo dolores repellendus consectetur iste.</p>
+            <p>For help and inquiry: inquiry about order status, delivery, returns, invoices, or any other order-related
+                issues. Please fill in the details below.</p>
         </div>
         <form action="./form-processings/process-contact-form.php" method="post">
             <div class="input-container">

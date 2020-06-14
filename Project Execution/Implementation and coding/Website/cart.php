@@ -54,11 +54,14 @@ $basketProducts = $_SESSION['basketProducts'];
             <label class="product-removal">Remove</label>
             <label class="product-line-price">Total</label>
         </div>
+<!--        TODO: Fix Discount calculation logic-->
         <form action="./checkout.php" method="POST">
             <?php $totalAmount = number_format(0, 2); ?>
+<!--            --><?php //$totalDiscount = number_format(0, 2); ?>
             <?php if (!empty($basketProducts)) : ?>
                 <?php foreach ($basketProducts as $basketProduct) : ?>
                     <?php $product = getProduct($db, $basketProduct->PRODUCT_ID); ?>
+<!--                    --><?php //$totalDiscount += getProdDiscount($db, $product->PRODUCT_ID); ?>
                     <?php $amount = number_format($product->RATE, 2) * number_format($basketProduct->QUANTITY); ?>
                     <div class="product">
                         <div class="product-image">
@@ -91,12 +94,8 @@ $basketProducts = $_SESSION['basketProducts'];
                     <div class="totals-value" id="cart-subtotal">0</div>
                 </div>
                 <div class="totals-item">
-                    <label>Tax (5%)</label>
-                    <div class="totals-value" id="cart-tax">0</div>
-                </div>
-                <div class="totals-item">
-                    <label>Shipping</label>
-                    <div class="totals-value" id="cart-shipping">0</div>
+                    <label>Total Discount</label>
+                    <div class="totals-value" id="cart-discount">0</div>
                 </div>
                 <div class="totals-item totals-item-total">
                     <label>Grand Total</label>

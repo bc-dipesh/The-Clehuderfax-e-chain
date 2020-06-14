@@ -124,7 +124,6 @@ $user = $_SESSION['user'];
 
         <hr class="mb-4">
 
-        <!--        <button class="btn btn-dark" type="submit">Checkout with PayPal</button>-->
         <button class="btn btn-primary" type="submit" name="paypal">Checkout with paypal</button>
         <a class="btn btn-dark" href="./cart.php" role="button">Go Back To Cart</a>
         <div id="paypal-button-container"></div>

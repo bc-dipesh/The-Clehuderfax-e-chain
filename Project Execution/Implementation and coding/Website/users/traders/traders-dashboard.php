@@ -11,7 +11,7 @@ if (!isset($_SESSION['trader'])) {
 }
 
 $db = new Database();
-// ... get monthly earning
+// ... get current month earning
 $query = "select extract(month from payment_date) \"Month\", (sum(bp.quantity) * p.rate) \"Earning\"
 from shops s,
      product_categories pc,

@@ -50,6 +50,13 @@
             <span>Traders</span></a>
     </li>
 
+    <!-- Nav Item - Shops -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./shops.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Shops</span></a>
+    </li>
+
     <!-- Nav Item - Back to website -->
     <li class="nav-item active">
         <a class="nav-link" href="../../index.php">

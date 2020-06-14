@@ -1,8 +1,6 @@
 /* Set rates + misc */
-let taxRate = 0.05;
-let shippingRate = 15.00;
+let discount = 0;
 let fadeTime = 300;
-// let productId = document.getElementById('productId').value;
 
 /* Assign actions */
 $('.product-quantity input').change(function () {
@@ -14,8 +12,14 @@ $('.product-removal button').click(function () {
 });
 
 /* Recalculate cart */
-function recalculateCart() {
+function recalculateCart(quantityInput) {
     let subtotal = 0;
+    let totalDiscount = 0;
+    let productId = $(quantityInput).next().val();
+
+    // TODO: Fix discount calculation logic.
+    // get discount
+    // setDiscount(productId);
 
     /* Sum up row totals */
     $('.product').each(function () {
@@ -23,15 +27,18 @@ function recalculateCart() {
     });
 
     /* Calculate totals */
-    let tax = subtotal * taxRate;
-    let shipping = (subtotal > 0 ? shippingRate : 0);
-    let total = subtotal + tax + shipping;
+    // discount = subtotal * discount;
+    // Number.isNaN(discount) ? discount = 0 : discount;
+
+    // totalDiscount = discount;
+    // let total = subtotal - totalDiscount;
+
+    let total = subtotal - discount;
 
     /* Update totals display */
     $('.totals-value').fadeOut(fadeTime, function () {
         $('#cart-subtotal').html(subtotal.toFixed(2));
-        $('#cart-tax').html(tax.toFixed(2));
-        $('#cart-shipping').html(shipping.toFixed(2));
+        $('#cart-discount').html(discount.toFixed(2));
         $('#cart-total').html(total.toFixed(2));
         if (total == 0) {
             $('.checkout').fadeOut(fadeTime);
@@ -55,7 +62,7 @@ function updateQuantity(quantityInput) {
     productRow.children('.product-line-price').each(function () {
         $(this).fadeOut(fadeTime, function () {
             $(this).text(linePrice.toFixed(2));
-            recalculateCart();
+            recalculateCart(quantityInput);
             $(this).fadeIn(fadeTime);
         });
     });
@@ -76,7 +83,6 @@ function removeItem(removeButton) {
     deleteBasketProduct(productId);
 }
 
-/* update session details */
 function updateBasketProducts(productId, quantity) {
     //  send a post ajax request to update the basket products session
     let xhr = new XMLHttpRequest();
@@ -85,7 +91,7 @@ function updateBasketProducts(productId, quantity) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     // send request
-    xhr.send("productId="+productId+"&prodQuantity="+quantity);
+    xhr.send("productId=" + productId + "&prodQuantity=" + quantity);
 }
 
 function deleteBasketProduct(productId) {
@@ -96,5 +102,21 @@ function deleteBasketProduct(productId) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     // send request
-    xhr.send("productId="+productId);
+    xhr.send("productId=" + productId);
 }
+
+// function setDiscount(productId) {
+//     let xhr = new XMLHttpRequest();
+//
+//     xhr.open('GET', './ajax-req-processings/get-prod-discount.php?prodId=' + productId, true);
+//     xhr.send();
+//
+//     xhr.onload = function () {
+//         console.log('inside onload');
+//         discount = parseFloat(this.responseText);
+//         // if (Number.isNaN(discount)) {
+//         //     return 0.0;
+//         // }
+//         // return discount;
+//     }
+// }

@@ -4,6 +4,7 @@ $pageTitle = basename(__FILE__, '.php');
 
 // import header from partials
 require_once "./partials/header-partial.php";
+require_once "./functions/customFunctions.php";
 
 // page specific query
 $query = "SELECT * FROM PRODUCTS";
@@ -35,6 +36,15 @@ if (isset($_GET['minPrice']) and isset($_GET['maxPrice'])) {
         ) WHERE line_number BETWEEN ? AND ?
           AND RATE BETWEEN $minPrice AND $maxPrice
           ORDER BY line_number";
+    // TODO: fix rownum error.
+//    $paginationQuery = "SELECT products.*,
+//                               ROWNUM
+//                        FROM products
+//                        WHERE rownum BETWEEN 7
+//                            AND 12
+//                          AND RATE BETWEEN $minPrice
+//                            AND $maxPrice
+//                        ORDER BY rownum";
 } else {
     $paginationQuery = "SELECT * FROM (
             SELECT

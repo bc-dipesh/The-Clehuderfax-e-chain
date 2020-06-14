@@ -24,13 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // get the user from the database.
         $user = getUserWithEmail($db, $email);
 
-        // ... get the trader from the database.
-        $trader = getTraderWithUserId($db, $user->USER_ID);
+        if (!$user) {
+            // ... unregistered user redirect to signup page.
+            $_SESSION['msg'] = "New trader please sign up";
+            header("location: ../../../users/traders/traders-sign-up.php");
+            exit();
+        }
 
-        if (!$user->IS_VERIFIED) {
+        if (!$user->IS_VERIFIED and $user) {
             // redirect user to login prompting him/her to verify email first
             $_SESSION['error'] = "Please verify your email before logging in.";
+            header("location: ../../../users/traders/traders-sign-in.php");
+            exit();
+        }
+
+        $trader = getTraderWithUserId($db, $user->USER_ID);
+        $customer = getCustomerWithUserId($db, $user->USER_ID);
+        $admin = getAdminWithUserId($db, $user->USER_ID);
+
+        if ($customer) {
             header("location: ../../../users/customers/customers-sign-in.php");
+            exit();
+        }
+
+        if ($admin) {
+            header("location: ../../../users/admins/admins-sign-in.php");
             exit();
         }
 
@@ -60,10 +78,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
         }
-        // ... unregistered user redirect to signup page.
-        $_SESSION['msg'] = "New trader please sign up";
-        header("location: ../../../users/traders/traders-sign-up.php");
-        exit();
     }
-
 }

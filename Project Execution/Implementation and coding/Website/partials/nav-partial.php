@@ -2,7 +2,9 @@
     <nav class="nav-bar">
         <!--search-form-->
         <form class="search-form" action="./search-products.php" method="GET">
-            <input class="search-input" type="text" name="prodToSearch" placeholder="search..." id="prodToSearch">
+            <input class="search-input" type="text" name="prodToSearch"
+                   placeholder="<?php if (isset($_GET['prodToSearch'])) echo $_GET['prodToSearch']; else echo 'search...'; ?>"
+                   id="prodToSearch">
         </form> <!-- ./search-form -->
 
         <!--navigation-bar-->
@@ -30,7 +32,9 @@
             </li>
             <li class="nav-item">
                 <a href="./cart.php"
-                   class="nav-link"><ion-icon class="shopping-cart-icon" name="cart-outline"></ion-icon></a>
+                   class="nav-link">
+                    <ion-icon class="shopping-cart-icon" name="cart-outline"></ion-icon>
+                </a>
             </li>
         </ul> <!-- ./nav-list -->
 

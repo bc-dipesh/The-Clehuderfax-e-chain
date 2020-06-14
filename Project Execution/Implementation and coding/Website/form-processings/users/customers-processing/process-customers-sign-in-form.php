@@ -40,8 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
 
-        // get the customer.
         $customer = getCustomerWithUserId($db, $user->USER_ID);
+        $trader = getTraderWithUserId($db, $user->USER_ID);
+        $admin = getAdminWithUserId($db, $user->USER_ID);
+
+        if ($trader) {
+            header("location: ../../../users/traders/traders-sign-in.php");
+            exit();
+        }
+
+        if ($admin) {
+            header("location: ../../../users/admins/admins-sign-in.php");
+            exit();
+        }
+
 
         if ($user->USER_ID == $customer->USER_ID and $user->USER_ID != 0) {
 

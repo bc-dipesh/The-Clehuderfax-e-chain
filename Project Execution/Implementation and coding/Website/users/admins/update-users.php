@@ -75,7 +75,7 @@ $user = getUserWithId($db, $_POST['update']);
                                 <label for="email"
                                        class="col-lg-3 col-form-label form-control-label">Email</label>
                                 <div class="col-lg-9">
-                                    <input name="email" id="email" class="form-control" type="email"
+                                    <input readonly name="email" id="email" class="form-control" type="email"
                                            value="<?php echo $user->EMAIL; ?>">
                                 </div>
                             </div>
@@ -105,11 +105,8 @@ $user = getUserWithId($db, $_POST['update']);
                                         id="inlineFormCustomSelect">
 
                                     <option>Account status...</option>
-                                    <?php if ($user->ACCOUNT_STATUS) : ?>
-                                        <option value="0">Deactivate</option>
-                                    <?php else: ?>
-                                        <option value="1">Activate</option>
-                                    <?php endif; ?>
+                                    <option value="0" <?php if (!$user->ACCOUNT_STATUS) echo "selected"; ?>>Deactivate</option>
+                                    <option value="1" <?php if ($user->ACCOUNT_STATUS) echo "selected"; ?>>Activate</option>
                                 </select>
                             </div>
 

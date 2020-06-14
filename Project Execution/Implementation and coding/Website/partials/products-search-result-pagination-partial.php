@@ -1,5 +1,10 @@
 <?php
 require_once "./models/Database.php";
+// ... function
+function decimalToPercentage($decimalVal)
+{
+    return round((float)$decimalVal * 100) . '%';
+}
 
 // pagination for all products
 $items = "";
@@ -41,12 +46,20 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p>No products available for now</p>
     <?php else: ?>
         <?php for ($i = 0; $i < count($items); $i++) : ?>
+            <?php // ... get offer details.
+            $query = "SELECT * FROM OFFERS WHERE PRODUCT_ID = ?";
+            $stmt = $db->conn->prepare($query);
+            $stmt->execute([$items[$i]['PRODUCT_ID']]);
+            $offer = $stmt->fetch();
+            ?>
             <div class="product-card animate__animated animate__zoomIn">
                 <a href="./product-details.php?prod_id=<?php echo $items[$i]['PRODUCT_ID']; ?>"><img class="product-img" src="./assets/img/products/<?php echo $items[$i]['IMAGE']; ?>"
                                                                                                      alt=""></a>
                 <h3><?php echo $items[$i]['PRODUCT_NAME']; ?></h3>
-                <p class="price light-grey">$<?php echo $items[$i]['RATE']; ?></p>
-                <!--                <p>--><?php //echo $items[$i]['DESCRIPTION']; ?><!--</p>-->
+                <p class="price light-grey">£<?php echo $items[$i]['RATE']; ?></p>
+                <?php if ($offer) : ?>
+                    <p><?php echo decimalToPercentage($offer->PERCENTAGE_OFF) . " off"; ?></p>
+                <?php endif; ?>
                 <button id="<?php echo $items[$i]['PRODUCT_ID']; ?>" type="button" class="add-to-cart-btn">Add to Cart</button>
             </div>
         <?php endfor; ?>
