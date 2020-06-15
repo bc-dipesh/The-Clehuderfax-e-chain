@@ -109,7 +109,7 @@
                         <input required type="checkbox" name="agree-term" id="agree-term"
                                class="agree-term" value="agreed" checked/>
                         <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
-                            statements in <a href="#" class="term-service">Terms of service</a></label>
+                            statements in <a href="../../terms-and-conditions.html" target="_blank" class="term-service">Terms of service</a></label>
                     </div>
                     <div class="form-group form-button">
                         <input required type="submit" name="signup" id="signup" class="form-submit" value="Register"/>

@@ -9,7 +9,7 @@
                 <h2 class="underline">Information</h2>
                 <a class="nav-link" href="./about-us.php">About Us</a>
                 <a class="nav-link" href="./contact-us.php">Contact</a>
-                <a class="nav-link" href="#" target="_blank">Terms & Conditions</a>
+                <a class="nav-link" href="./terms-and-conditions.html" target="_blank">Terms & Conditions</a>
             </div>
             <div class="footer-content-container">
                 <h2 class="underline">Social Links</h2>
