@@ -68,6 +68,8 @@ define("DELETE_SHOP", "DELETE FROM SHOPS WHERE SHOP_ID = ?");
 
 define("PAYPAL_IDENTITY_TOKEN", 'AbmurxS_ER98gVSB-YtpiDH1QWNEkFoYur4xetSTjCqB-m73dtryZ_N15X8');
 
+define("GET_USER_WITH_SHOP_ID", "SELECT * FROM TRADERS T, SHOPS S WHERE T.TRADER_ID = S.TRADER_ID AND S.SHOP_ID = ?");
+
 // generates a prepared statement
 function prepareStmt($db, $query)
 {
@@ -267,6 +269,13 @@ function logCurrentAction($db, $userId, $adminId, $action)
 function logErrorToFile($ex)
 {
     error_log($ex->getMessage() . " " . $ex->getFile() . ", at line " . $ex->getLine() . " " . date("M,d,Y h:i:s A") . "\n", 3, '../../../error-logs/errorLogs.txt');
+}
+
+function getTraderWithShopId($db, $shopId)
+{
+    $stmt = prepareStmt($db, GET_USER_WITH_SHOP_ID);
+    $stmt->execute([$shopId]);
+    return $stmt->fetch();
 }
 
 function getProdDiscount($db, $prodId)

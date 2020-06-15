@@ -27,6 +27,10 @@ $db = new Database();
 
 try {
     $result = updateShop($db, $_POST['shopId'], $_POST['shopName']);
+    if ($result) {
+        $trader = getTraderWithShopId($db, $_POST['shopId']);
+        logCurrentAction($db, $trader->USER_ID, $_SESSION['admin']->ADMIN_ID, 'Updated user shop');
+    }
     setNotification($result);
 } catch (ArgumentCountError $ex) {
     logErrorToFile($ex);
