@@ -2,3 +2,6 @@ SQLSTATE[HY000]: General error: 1400 OCIStmtExecute: ORA-01400: cannot insert NU
  (ext\pdo_oci\oci_statement.c:157) C:\xampp\htdocs\the-clechuderfax-e-chain\functions\customFunctions.php, at line 220
 SQLSTATE[HY000]: General error: 1400 OCIStmtExecute: ORA-01400: cannot insert NULL into ("HR"."ACCESS_DETAILS"."ACCESS_DETAIL_ID")
  (ext\pdo_oci\oci_statement.c:157) C:\xampp\htdocs\the-clechuderfax-e-chain\functions\customFunctions.php, at line 220
+SQLSTATE[HY000]: General error: 1008 OCIStmtExecute: ORA-01008: not all variables bound
+ (ext\pdo_oci\oci_statement.c:157) C:\xampp\htdocs\the-clechuderfax-e-chain\functions\customFunctions.php, at line 222
+Too few arguments to function updateUserProfile(), 7 passed in C:\xampp\htdocs\the-clechuderfax-e-chain\form-processings\users\admins-processing\process-admins-update-users.php on line 38 and exactly 8 expected C:\xampp\htdocs\the-clechuderfax-e-chain\functions\customFunctions.php, at line 221 Jun,14,2020 04:59:37 PM

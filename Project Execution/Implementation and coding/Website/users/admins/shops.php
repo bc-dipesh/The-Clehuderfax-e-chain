@@ -39,7 +39,7 @@ if (!isset($_SESSION['admin'])) {
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- DataTables  for products-->
+                <!-- DataTables  for shops-->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">List of Shops</h6>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['admin'])) {
                                 </tfoot>
                                 <tbody>
                                 <?php
-                                // ... get all the users.
+                                // ... get all the shops.
                                 $query = "SELECT * FROM SHOPS";
                                 $stmt = $db->conn->prepare($query);
                                 $stmt->execute();
@@ -79,7 +79,7 @@ if (!isset($_SESSION['admin'])) {
                                 <?php foreach ($shops as $shop) : ?>
                                     <tr>
                                         <td>
-                                            <form action="./update-users.php"
+                                            <form action="./update-shops.php"
                                                   method="POST">
                                                 <button type="submit" name="update"
                                                         value="<?php echo $shop->SHOP_ID; ?>"
@@ -88,7 +88,7 @@ if (!isset($_SESSION['admin'])) {
                                             </form>
                                         </td>
                                         <td>
-                                            <form action="../../form-processings/users/admins-processing/process-admins-delete-users.php"
+                                            <form action="../../form-processings/users/admins-processing/process-admins-delete-shop.php"
                                                   method="POST">
                                                 <button type="submit" name="delete"
                                                         value="<?php echo $shop->SHOP_ID; ?>"

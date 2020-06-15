@@ -6,7 +6,7 @@ $pageTitle = basename(__FILE__, '.php');
 require_once "./partials/header-partial.php";
 
 if (isset($_GET['prodToSearch'])) {
-    $searchProd = strtolower($_GET['prodToSearch']);
+    $searchProd = trim(strtolower($_GET['prodToSearch']));
 } else {
     $searchProd = "";
 }

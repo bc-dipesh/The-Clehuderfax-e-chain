@@ -1,16 +1,18 @@
 <?php
-
 session_start();
 
-if (!isset($_SESSION['admin']) and !isset($_SESSION['updateBtn'])) {
-    header("location: ../../../users/admins/admins-sign-in.php");
+function authenticateAccess()
+{
+    if (!isset($_SESSION['admin']) and !isset($_SESSION['updateBtn'])) {
+        header("location: ../../../users/admins/admins-sign-in.php");
+    }
 }
+
+authenticateAccess();
 
 // import necessary files
 require_once "../../../functions/customFunctions.php";
 require_once "../../../models/Database.php";
-
-//prettyPrint($_POST);
 
 $db = new Database();
 
@@ -23,12 +25,10 @@ $phone = trim($_POST['phone']);
 $address = trim($_POST['address']);
 $accountStatus = $_POST['accountStatus'];
 
-// update profile
-$query = "UPDATE USERS SET FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ?, PHONE_NUMBER = ?, ADDRESS = ?, ACCOUNT_STATUS = ? WHERE USER_ID = ?";
-$stmt = $db->conn->prepare($query);
-
 try {
-    $result = $stmt->execute([$firstName, $lastName, $email, $phone, $address, $accountStatus, $userId]);
+    $result = updateUserProfile($db, $firstName, $lastName, $email, $phone, $address, $accountStatus, $userId);
+} catch (ArgumentCountError $ex) {
+    logErrorToFile($ex);
 } catch (PDOException $ex) {
     logErrorToFile($ex);
 }
@@ -36,8 +36,9 @@ try {
 // set session
 if ($result) {
     try {
-        // log the current action
         logCurrentAction($db, $userId, $_SESSION['admin']->ADMIN_ID, 'Updated user profile');
+    } catch (ArgumentCountError $ex) {
+        logErrorToFile($ex);
     } catch (PDOException $ex) {
         logErrorToFile($ex);
     }

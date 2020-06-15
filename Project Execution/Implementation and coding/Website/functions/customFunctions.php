@@ -48,13 +48,25 @@ define("FETCH_BASKET_WITH_CUSTOMER_ID", "SELECT * FROM BASKETS WHERE CUSTOMER_ID
 
 define("FETCH_BASKET_PRODUCTS_WITH_BASKET_ID", "SELECT * FROM BASKET_PRODUCTS WHERE BASKET_ID = ?");
 
-define("SEARCH_PRODUCTS", "SELECT * FROM PRODUCTS WHERE LOWER(PRODUCT_NAME) LIKE '%'?'%'");
+define("INSERT_INTO_INVOICES", "INSERT INTO INVOICES (COLLECTION_SLOT_ID, INVOICE_DATE, IS_COLLECTED) VALUES (?, LOCALTIMESTAMP, 0)");
+
+//define("SEARCH_PRODUCTS", "SELECT * FROM PRODUCTS WHERE LOWER(PRODUCT_NAME) LIKE '%'?'%'");
 
 define("PASSWORD_RESET", "UPDATE USERS SET PASSWORD = null WHERE USER_ID = ?");
 
 define("SET_VERIFICATION_TOKEN", "UPDATE USERS SET VERIFICATION_TOKEN = ? WHERE USER_ID = ?");
 
+define("GET_SHOP_WITH_ID", "SELECT * FROM SHOPS WHERE SHOP_ID = ?");
+
+define("UPDATE_USER_DETAILS", "UPDATE USERS SET FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ?, PHONE_NUMBER = ?, ADDRESS = ?, ACCOUNT_STATUS = ? WHERE USER_ID = ?");
+
+define("UPDATE_SHOP_DETAILS", "UPDATE SHOPS SET SHOP_NAME = ? WHERE SHOP_ID = ?");
+
 define("LOG_CURRENT_ACTION", "INSERT INTO ACCESS_DETAILS (ACCESSED_USER_ID, ACCESSED_BY_ADMIN_ID, ACTION, ACCESSED_AT) VALUES (?, ?, ?, localtimestamp(2))");
+
+define("DELETE_SHOP", "DELETE FROM SHOPS WHERE SHOP_ID = ?");
+
+define("PAYPAL_IDENTITY_TOKEN", 'AbmurxS_ER98gVSB-YtpiDH1QWNEkFoYur4xetSTjCqB-m73dtryZ_N15X8');
 
 // generates a prepared statement
 function prepareStmt($db, $query)
@@ -205,13 +217,45 @@ function getCategoryIdByTraderId($db, $traderId)
     return $stmt->fetch()->PRODUCT_CATEGORY_ID;
 }
 
-// search product in database
-function searchProducts($db, $searchProd)
+function getShopWithId($db, $shopId)
 {
-    $stmt = prepareStmt($db, "SELECT * FROM products WHERE LOWER(PRODUCT_NAME) LIKE '%$searchProd%'");
-    $stmt->execute();
+    $stmt = prepareStmt($db, GET_SHOP_WITH_ID);
+    $stmt->execute([$shopId]);
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetch();
+}
+
+// search product in database
+//function searchProducts($db, $searchProd)
+//{
+//    $stmt = prepareStmt($db, "SELECT * FROM products WHERE LOWER(PRODUCT_NAME) LIKE '%$searchProd%'");
+//    $stmt->execute();
+//
+//    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//}
+
+function updateShop($db, $shopId, $shopName)
+{
+    $stmt = prepareStmt($db, UPDATE_SHOP_DETAILS);
+    return $stmt->execute([$shopName, $shopId]);
+}
+
+function updateUserProfile($db, $firstName, $lastName, $email, $phone, $address, $accountStatus, $userId)
+{
+    $stmt = prepareStmt($db, UPDATE_USER_DETAILS);
+    return $stmt->execute([$firstName, $lastName, $email, $phone, $address, $accountStatus, $userId]);
+}
+
+function deleteShop($db, $shopId)
+{
+    $stmt = prepareStmt($db, DELETE_SHOP);
+    return $stmt->execute([$shopId]);
+}
+
+function saveInvoice($db, $collection_slot_id)
+{
+    $stmt = prepareStmt($db, INSERT_INTO_INVOICES);
+    return $stmt->execute([$collection_slot_id]);
 }
 
 function logCurrentAction($db, $userId, $adminId, $action)
@@ -222,7 +266,7 @@ function logCurrentAction($db, $userId, $adminId, $action)
 
 function logErrorToFile($ex)
 {
-    error_log($ex->getMessage() . " " . $ex->getFile() . ", at line " . $ex->getLine() . "\n", 3, '../../../error-logs/errorLogs.txt');
+    error_log($ex->getMessage() . " " . $ex->getFile() . ", at line " . $ex->getLine() . " " . date("M,d,Y h:i:s A") . "\n", 3, '../../../error-logs/errorLogs.txt');
 }
 
 function getProdDiscount($db, $prodId)
@@ -249,4 +293,63 @@ function prettyPrint($var)
     var_dump($var);
     echo "</pre>";
     exit();
+}
+
+function verifyTx($tx)
+{
+    $request = curl_init();
+
+    // set request options
+    curl_setopt_array($request, [
+        CURLOPT_URL => 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+        CURLOPT_POST => TRUE,
+        CURLOPT_POSTFIELDS => http_build_query([
+            'cmd' => '_notify-synch',
+            'tx' => $tx,
+            'at' => PAYPAL_IDENTITY_TOKEN,
+        ]),
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_HEADER => FALSE,
+    ]);
+
+    // execute request and get response and status
+    $response = curl_exec($request);
+    $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+    // close connection
+    curl_close($request);
+
+    return [
+        "status" => $status,
+        "response" => $response
+    ];
+}
+
+function cleanPayPalResponse($response)
+{
+    // remove success part (7 characters long)
+    $response = substr($response, 7);
+
+    // url decode
+    $response = urldecode($response);
+
+    // turn it into associative array
+    preg_match_all('/^([^=\s]++)=(.*+)/m', $response, $m, PREG_PATTERN_ORDER);
+    $response = array_combine($m[1], $m[2]);
+
+    // fix character encoding if different from utf-8
+    if(isset($response['charset']) AND strtoupper($response['charset']) !== 'UTF-8')
+    {
+        foreach($response as $key => &$value)
+        {
+            $value = mb_convert_encoding($value, 'UTF-8', $response['charset']);
+        }
+        $response['charset_original'] = $response['charset'];
+        $response['charset'] = 'UTF-8';
+    }
+
+    // sort on keys for readability (handy when debugging)
+    ksort($response);
+
+    return $response;
 }

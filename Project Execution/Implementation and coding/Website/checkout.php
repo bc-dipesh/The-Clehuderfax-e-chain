@@ -103,11 +103,12 @@ $user = $_SESSION['user'];
 
         <div class="mb-3">
             <label for="collectionSlot">Collection Slot</label>
-            <select class="custom-select d-block w-100" id="collectionSlot" required>
+            <select onchange="setCollectionSlot()" class="custom-select d-block w-100" name="collectionSlot"
+                    id="collectionSlot" required>
                 <option value="">Choose...</option>
                 <!--determine and display only the slots that is wihtin 24 hours from now-->
                 <?php
-                $query = "SELECT * FROM COLLECTION_SLOTS WHERE UPPER(COLLECTION_DAY) != TRIM(TO_CHAR(SYSDATE, 'DAY'))";
+                $query = "SELECT * FROM COLLECTION_SLOTS WHERE UPPER(COLLECTION_DAY) != TRIM(TO_CHAR(SYSDATE, 'DAY')) AND AVAILABLE_ORDER != 0";
                 $stmt = $db->conn->prepare($query);
                 $stmt->execute();
                 $collectionSlots = $stmt->fetchAll();
@@ -152,6 +153,7 @@ $user = $_SESSION['user'];
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="./template-assets/vendor/jquery/jquery.min.js"></script>
 <script>
     // JavaScript for disabling form submissions if there are invalid fields
     (function () {
@@ -173,6 +175,16 @@ $user = $_SESSION['user'];
             });
         }, false);
     })();
+
+    // set the collection slot to session
+    function setCollectionSlot() {
+        const element = document.getElementById("collectionSlot");
+        $.post('./ajax-req-processings/set-collection-slot.php',
+            {
+                collectionSlotId: parseInt(element.value)
+            },
+        );
+    }
 </script>
 </body>
 </html>
