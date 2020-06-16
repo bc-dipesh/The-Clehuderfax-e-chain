@@ -16,7 +16,7 @@
 
                 <h2 class="form-title">Customer Sign up</h2>
 
-                <!--customer signup form-->
+                <!--customer sign up form-->
                 <form action="../../form-processings/users/customers-processing/process-customers-sign-up-form.php" method="POST" class="register-form" id="register-form">
                     <div class="form-group">
                         <label for="firstName"><i class="zmdi zmdi-account material-icons-name"></i></label>

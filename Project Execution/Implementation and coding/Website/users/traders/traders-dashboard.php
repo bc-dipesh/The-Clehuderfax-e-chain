@@ -12,7 +12,7 @@ if (!isset($_SESSION['trader'])) {
 
 $db = new Database();
 // ... get current month earning
-$query = "select extract(month from payment_date) \"Month\", (sum(bp.quantity) * p.rate) \"Earning\"
+$query = "select extract(month from payment_date) \"Month\", sum((bp.quantity) * p.rate) \"Earning\"
 from shops s,
      product_categories pc,
      products p,
@@ -27,7 +27,7 @@ where s.shop_id = pc.shop_id
   and active = 0
   and s.trader_id = ?
   and extract(month from payment_date) = extract(month from localtimestamp(2))
-group by extract(month from payment_date), p.rate";
+group by extract(month from payment_date)";
 $stmt = $db->conn->prepare($query);
 $stmt->execute([$_SESSION['trader']->TRADER_ID]);
 
@@ -35,7 +35,7 @@ $monthlyEarning = $stmt->fetch();
 
 // ... get yearly earning
 $query = "select extract(year from payment_date)             \"Year\",
-       (sum(bp.quantity) * p.rate) \"Earning\"
+       sum((bp.quantity) * p.rate) \"Earning\"
 from shops s,
      product_categories pc,
      products p,
@@ -50,7 +50,7 @@ where s.shop_id = pc.shop_id
   and active = 0
   and s.trader_id = ?
   and extract(year from payment_date) = extract(year from localtimestamp(2))
-group by extract(year from payment_date), p.rate";
+group by extract(year from payment_date)";
 $stmt = $db->conn->prepare($query);
 $stmt->execute([$_SESSION['trader']->TRADER_ID]);
 

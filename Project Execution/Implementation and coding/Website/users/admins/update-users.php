@@ -100,7 +100,7 @@ $user = getUserWithId($db, $_POST['update']);
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <select name="accountStatus" class="custom-select mr-sm-2"
                                         id="inlineFormCustomSelect">
 

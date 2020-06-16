@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta nme="author" content="The Influencers">
-    <meta name="description" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, a.">
+    <meta name="description"
+          content="Bakery, Delicatessen, Greengrocer, Butcher, Fishmonger, Online Grocery Store, Online Food store, Online Food store in UK">
 
     <title>The Clehuderfax E-Chain | <?php echo ucfirst($pageTitle); ?> </title>
 

@@ -57,6 +57,13 @@
             <span>Shops</span></a>
     </li>
 
+    <!-- Nav Item - Login as Trader -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./login-trader.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Login as Trader</span></a>
+    </li>
+
     <!-- Nav Item - Back to website -->
     <li class="nav-item active">
         <a class="nav-link" href="../../index.php">
