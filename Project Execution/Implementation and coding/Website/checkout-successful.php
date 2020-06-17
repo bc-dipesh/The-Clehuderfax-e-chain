@@ -22,11 +22,12 @@ if (isset($_GET['tx'])) {
         $paymentMethod = "PayPal";
         $traders = [];
 
-        $query = "INSERT INTO PAYMENTS (BASKET_ID, PAYMENT_METHOD, AMOUNT, PAYMENT_DATE)
-             values (?, ?, ?, localtimestamp(2))";
+        $invoiceId = saveInvoice($db, $_SESSION['collectionSlotId']);
+
+        $query = "INSERT INTO PAYMENTS (BASKET_ID, INVOICE_ID, PAYMENT_METHOD, AMOUNT, PAYMENT_DATE)
+             values (?, $invoiceId, ?, ?, localtimestamp(2))";
         $stmt = $db->conn->prepare($query);
 
-        saveInvoice($db, $_SESSION['collectionSlotId']);
 
         try {
             $stmt->execute([$basketId, $paymentMethod, $amt]);
@@ -97,17 +98,6 @@ if (isset($_GET['tx'])) {
                 }
             }
 
-            // finally send email to the customer
-            // send the email
-            $to = $_SESSION['user']->EMAIL;
-            $subject = "Payment Successful";
-            $message = "<p>Your Payment of £$amt was successful!</p>
-                    <p>Thank you for shopping with us.</p>";
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
-            $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";
-            mail($to, $subject, $message, $headers);
-
             // update the basket
             $query = "UPDATE BASKETS SET ACTIVE = ? WHERE BASKET_ID = ?";
             $stmt = $db->conn->prepare($query);
@@ -124,15 +114,49 @@ if (isset($_GET['tx'])) {
             $stmt->execute([$_SESSION['customer']->CUSTOMER_ID, 1]);
             $basket = $stmt->fetch();
 
-            $_SESSION['basket'] = $basket;
-            unset($_SESSION['basketProducts']);
-            $_SESSION['basketProducts'] = "";
+            // create invoice
+            $invoiceDetails = getInvoiceDetails($db, $invoiceId);
+            $invoiceData = "";
+            $totalAmount = 0;
+            $collectionDayTime = "";
+            $invoiceDate = "";
 
-            $_SESSION['paymentStatus'] = "Successful";
-            header("location: ./users/customers/customers-dashboard.php");
+            foreach ($invoiceDetails as $invoiceItem) {
+                $invoiceData .= "<tr>
+                    <td>$invoiceItem->PRODUCT_NAME</td>
+                    <td>£$invoiceItem->RATE/-</td>
+                    <td>$invoiceItem->QUANTITY</td>
+                    <td>£$invoiceItem->TOTAL/-</td>
+                </tr>";
+                $totalAmount += $invoiceItem->TOTAL;
+                $collectionDayTime = $invoiceItem->COLLECTION_TIME;
+                $invoiceDate = $invoiceItem->INVOICE_DATE;
+            }
+            $invoiceData .= "<tr>
+                    <td colspan='5' style='text-align:right; padding:10px;'>
+                            <strong>Total : </strong>£$totalAmount/-
+                    </td>
+                 </tr>";
+
+            require_once "./emailLayout.php";
+
+            // finally send email to the customer
+            $to = $_SESSION['user']->EMAIL;
+            $subject = "Payment Successful";
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";
+            mail($to, $subject, $emailMessage, $headers);
 
             // unset the collection slot
             unset($_SESSION['collectionSlotId']);
+
+            $_SESSION['basket'] = $basket;
+            unset($_SESSION['basketProducts']);
+            $_SESSION['basketProducts'] = "";
+            $_SESSION['paymentStatus'] = "Successful";
+            header("location: ./users/customers/customers-dashboard.php");
+
         } catch (PDOException $ex) {
             logErrorToFile($ex);
         }

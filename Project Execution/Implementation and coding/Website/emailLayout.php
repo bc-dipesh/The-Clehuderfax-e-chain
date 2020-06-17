@@ -1,193 +1,94 @@
-<!doctype html>
-<html>
+<?php
+
+$emailMessage = "<!DOCTYPE html>
+<html lang='en'>
 <head>
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Trader Application Request Approval</title>
-    <style>
-        /* -------------------------------------
-            INLINED WITH htmlemail.io/inline
-        ------------------------------------- */
-        /* -------------------------------------
-            RESPONSIVE AND MOBILE FRIENDLY STYLES
-        ------------------------------------- */
-        @media only screen and (max-width: 620px) {
-            table[class=body] h1 {
-                font-size: 28px !important;
-                margin-bottom: 10px !important;
-            }
-
-            table[class=body] p,
-            table[class=body] ul,
-            table[class=body] ol,
-            table[class=body] td,
-            table[class=body] span,
-            table[class=body] a {
-                font-size: 16px !important;
-            }
-
-            table[class=body] .wrapper,
-            table[class=body] .article {
-                padding: 10px !important;
-            }
-
-            table[class=body] .content {
-                padding: 0 !important;
-            }
-
-            table[class=body] .container {
-                padding: 0 !important;
-                width: 100% !important;
-            }
-
-            table[class=body] .main {
-                border-left-width: 0 !important;
-                border-radius: 0 !important;
-                border-right-width: 0 !important;
-            }
-
-            table[class=body] .btn table {
-                width: 100% !important;
-            }
-
-            table[class=body] .btn a {
-                width: 100% !important;
-            }
-
-            table[class=body] .img-responsive {
-                height: auto !important;
-                max-width: 100% !important;
-                width: auto !important;
-            }
+      <style>
+        .email_table {
+            color: #333;
+            font-family: sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 99%;
+            margin: 6px auto;
+            box-shadow:none;
+        }
+        table {
+            color: #333;
+            font-family: sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 99%;
+            margin: 50px auto;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,.16);
         }
 
-        /* -------------------------------------
-            PRESERVE THESE STYLES IN THE HEAD
-        ------------------------------------- */
-        @media all {
-            .ExternalClass {
-                width: 100%;
-            }
+        th {font-weight: bold; padding:10px; border-bottom:2px solid #000;}
 
-            .ExternalClass,
-            .ExternalClass p,
-            .ExternalClass span,
-            .ExternalClass font,
-            .ExternalClass td,
-            .ExternalClass div {
-                line-height: 100%;
-            }
+        tbody td {border-bottom: 1px solid #ddd; padding:10px;}
 
-            .apple-link a {
-                color: inherit !important;
-                font-family: inherit !important;
-                font-size: inherit !important;
-                font-weight: inherit !important;
-                line-height: inherit !important;
-                text-decoration: none !important;
-            }
 
-            #MessageViewBody a {
-                color: inherit;
-                text-decoration: none;
-                font-size: inherit;
-                font-family: inherit;
-                font-weight: inherit;
-                line-height: inherit;
-            }
 
-            .btn-primary table td:hover {
-                background-color: #34495e !important;
-            }
-
-            .btn-primary a:hover {
-                background-color: #34495e !important;
-                border-color: #34495e !important;
-            }
-        }
+        .email_main_div{width:700px; margin:auto; background-color:#EEEEEE; min-height:500px; border:2px groove #999999;}
+        strong{font-weight:bold;}
+        .item_table{text-align:left;}
     </style>
 </head>
-<body class=""
-      style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-<table border="0" cellpadding="0" cellspacing="0" class="body"
-       style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6;">
-    <tr>
-        <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>
-        <td class="container"
-            style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; Margin: 0 auto; max-width: 580px; padding: 10px; width: 580px;">
-            <div class="content"
-                 style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
 
-                <!-- START CENTERED WHITE CONTAINER -->
-                <span class="preheader"
-                      style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This is preheader text. Some clients will show this text as a preview.</span>
-                <table class="main"
-                       style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
+<body>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-                    <!-- START MAIN CONTENT AREA -->
-                    <tr>
-                        <td class="wrapper"
-                            style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;">
-                            <table border="0" cellpadding="0" cellspacing="0"
-                                   style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                                <tr>
-                                    <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Hi there,</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Our customer {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }} wants to trade {{ $traderType }} for our online-shop.</p>
-                                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"
-                                               style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left"
-                                                    style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;">
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Here are his details. Proceed with actions that needs to be taken.</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Thank you.</p>
-                                        <p>Applicant Details</p>
-                                        <ul>
-                                            <li>First Name: {{ Auth::user()->first_name }}</li>
-                                            <li>Last Name: {{ Auth::user()->last_name }}</li>
-                                            <li>Email: {{ Auth::user()->email }}</li>
-                                            <li>Applied for trader-type: {{ $traderType }}</li>
-                                            <li>Reason: {{ $applicationReason }}</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+    ga('create', 'UA-67816487-1', 'auto');
+    ga('send', 'pageview');
 
-                    <!-- END MAIN CONTENT AREA -->
-                </table>
+</script>
 
-                <!-- START FOOTER -->
-                <div class="footer" style="clear: both; Margin-top: 10px; text-align: center; width: 100%;">
-                    <table border="0" cellpadding="0" cellspacing="0"
-                           style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                        <tr>
-                            <td class="content-block"
-                                style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">The Clechuderfax E-chain</span>
-                            </td>
-                        </tr>
-                        <tr>
-                        </tr>
-                    </table>
-                </div>
-                <!-- END FOOTER -->
+<div class='email_main_div'>
+    <table class='email_table'>
+        <tr>
+            <td width='400px;' style='text-align:center; padding:10px;'>
+                <img src='https://github.com/bc-dipesh/The-Clehuderfax-e-chain/blob/master/Project%20Execution/Implementation%20and%20coding/Website/assets/img/logo/logo.png?raw=true' width='300' height='100px' />
+            </td>
+        </tr>
+    </table>
 
-                <!-- END CENTERED WHITE CONTAINER -->
-            </div>
-        </td>
-        <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>
-    </tr>
-</table>
+    <table class='email_table' style='margin-top:14px;'>
+        <tbody>
+            <tr>
+                <td width='350px;' style='text-align:left; padding:10px;'>
+                    <strong>Payment Receipt</strong><br />
+                    Invoice ID: $invoiceId <br/>
+                    Invoice Date: $invoiceDate <br/>
+                    Collection Day and Time: $collectionDayTime
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class='item_table'>
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        $invoiceData
+        </tbody>
+    </table>
+</div>
 </body>
-</html>
+</html>";

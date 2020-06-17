@@ -116,7 +116,7 @@ if (isset($_GET['minPrice']) and isset($_GET['maxPrice'])) {
                     </div>
                     <div class="output">
                         <button class="filterBtn" name="priceFilterBtn">Filter</button>
-                        <p class="price-range">Price: $<span id="minPriceSpan">0</span>-$<span
+                        <p class="price-range">Price: £<span id="minPriceSpan">0</span>-£<span
                                     id="maxPriceSpan">0</span>
                         </p>
                     </div>

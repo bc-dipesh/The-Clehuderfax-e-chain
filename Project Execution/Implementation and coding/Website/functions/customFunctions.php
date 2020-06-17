@@ -48,7 +48,9 @@ define("FETCH_BASKET_WITH_CUSTOMER_ID", "SELECT * FROM BASKETS WHERE CUSTOMER_ID
 
 define("FETCH_BASKET_PRODUCTS_WITH_BASKET_ID", "SELECT * FROM BASKET_PRODUCTS WHERE BASKET_ID = ?");
 
-define("INSERT_INTO_INVOICES", "INSERT INTO INVOICES (COLLECTION_SLOT_ID, INVOICE_DATE, IS_COLLECTED) VALUES (?, LOCALTIMESTAMP, 0)");
+define("INSERT_INTO_INVOICES", "INSERT INTO INVOICES (INVOICE_ID, COLLECTION_SLOT_ID, INVOICE_DATE, IS_COLLECTED) VALUES (?, ?, localtimestamp, 0)");
+
+define("FETCH_CURRENT_INVOICE_ID", "SELECT INVOICES_SEQ.currval \"ID\" from dual");
 
 //define("SEARCH_PRODUCTS", "SELECT * FROM PRODUCTS WHERE LOWER(PRODUCT_NAME) LIKE '%'?'%'");
 
@@ -69,6 +71,15 @@ define("DELETE_SHOP", "DELETE FROM SHOPS WHERE SHOP_ID = ?");
 define("PAYPAL_IDENTITY_TOKEN", 'AbmurxS_ER98gVSB-YtpiDH1QWNEkFoYur4xetSTjCqB-m73dtryZ_N15X8');
 
 define("GET_USER_WITH_SHOP_ID", "SELECT * FROM TRADERS T, SHOPS S WHERE T.TRADER_ID = S.TRADER_ID AND S.SHOP_ID = ?");
+
+define("GET_INVOICE_DETAILS", "SELECT PRODUCT_NAME, COLLECTION_TIME, TO_CHAR(INVOICE_DATE, 'YYYY-MM-DD') \"INVOICE_DATE\", PAYMENT_METHOD, RATE, BP.QUANTITY, BP.QUANTITY * RATE \"TOTAL\", AMOUNT FROM COLLECTION_SLOTS CS, INVOICES I, PAYMENTS PAY, BASKETS B, BASKET_PRODUCTS BP, PRODUCTS P
+WHERE CS.COLLECTION_SLOT_ID = I.COLLECTION_SLOT_ID
+  AND I.INVOICE_ID = PAY.INVOICE_ID
+  AND PAY.BASKET_ID = B.BASKET_ID
+  AND B.BASKET_ID = BP.BASKET_ID
+  AND BP.PRODUCT_ID = P.PRODUCT_ID
+  AND B.ACTIVE = 0
+  AND I.INVOICE_ID = ?");
 
 // generates a prepared statement
 function prepareStmt($db, $query)
@@ -256,8 +267,14 @@ function deleteShop($db, $shopId)
 
 function saveInvoice($db, $collection_slot_id)
 {
+    $stmt = prepareStmt($db, "SELECT INVOICES_SEQ.nextval \"ID\" from dual");
+    $stmt->execute();
+    $id = $stmt->fetch();
+
     $stmt = prepareStmt($db, INSERT_INTO_INVOICES);
-    return $stmt->execute([$collection_slot_id]);
+    $stmt->execute([$id->ID, $collection_slot_id]);
+
+    return $id->ID;
 }
 
 function logCurrentAction($db, $userId, $adminId, $action)
@@ -276,6 +293,13 @@ function getTraderWithShopId($db, $shopId)
     $stmt = prepareStmt($db, GET_USER_WITH_SHOP_ID);
     $stmt->execute([$shopId]);
     return $stmt->fetch();
+}
+
+function getInvoiceDetails($db, $invoiceId)
+{
+    $stmt = prepareStmt($db, GET_INVOICE_DETAILS);
+    $stmt->execute([$invoiceId]);
+    return $stmt->fetchAll();
 }
 
 function getProdDiscount($db, $prodId)
@@ -347,10 +371,8 @@ function cleanPayPalResponse($response)
     $response = array_combine($m[1], $m[2]);
 
     // fix character encoding if different from utf-8
-    if(isset($response['charset']) AND strtoupper($response['charset']) !== 'UTF-8')
-    {
-        foreach($response as $key => &$value)
-        {
+    if (isset($response['charset']) and strtoupper($response['charset']) !== 'UTF-8') {
+        foreach ($response as $key => &$value) {
             $value = mb_convert_encoding($value, 'UTF-8', $response['charset']);
         }
         $response['charset_original'] = $response['charset'];

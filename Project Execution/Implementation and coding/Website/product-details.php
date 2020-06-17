@@ -68,7 +68,7 @@ $basket = $stmt->fetch(PDO::FETCH_OBJ);
             <div class="right">
                 <div class="description">
                     <h1><?php echo $product->PRODUCT_NAME; ?></h1>
-                    <p>$<?php echo $product->RATE; ?></p>
+                    <p>£<?php echo $product->RATE; ?></p>
 
                     <div class="category">
                         <?php
