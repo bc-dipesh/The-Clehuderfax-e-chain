@@ -100,7 +100,7 @@ if (!isset($_SESSION['customer'])) {
                                         and payments.BASKET_ID = baskets.BASKET_ID
                                         and active = 0";
                                 $stmt = $db->conn->prepare($query);
-                                $stmt->execute([$_SESSION['user']->USER_ID]);
+                                $stmt->execute([$_SESSION['customer']->CUSTOMER_ID]);
                                 $products = $stmt->fetchAll();
                                 ?>
                                 <?php foreach ($products as $product) : ?>

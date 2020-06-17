@@ -18,7 +18,7 @@ where users.user_id = customers.user_id
 group by extract(month from payment_date)";
 
 $stmt = $db->conn->prepare($query);
-$stmt->execute([$_SESSION['user']->USER_ID]);
+$stmt->execute([$_SESSION['customer']->CUSTOMER_ID]);
 $products = $stmt->fetchAll();
 
 // ... send the data to the request.

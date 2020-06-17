@@ -63,39 +63,50 @@ if (isset($_GET['tx'])) {
             $traders = array_unique($traders);
 
             foreach ($traders as $id => $email) {
-                $query = "SELECT P.PRODUCT_NAME, P.RATE, BP.QUANTITY, T.TRADER_ID FROM TRADERS T, TRADER_TYPES TT, SHOPS S, PRODUCT_CATEGORIES PC, PRODUCTS P, BASKET_PRODUCTS BP
-                    WHERE T.TRADER_ID = TT.TRADER_ID
-                    AND TT.TRADER_ID = S.TRADER_ID
-                    AND TT.TRADER_TYPE_ID = S.TRADER_TYPE_ID
-                    AND S.SHOP_ID = PC.SHOP_ID
-                    AND PC.PRODUCT_CATEGORY_ID = P.PRODUCT_CATEGORY_ID
-                    AND P.PRODUCT_ID = BP.PRODUCT_ID
-                    AND T.TRADER_ID = ?
-                    AND P.PRODUCT_ID = ?";
+                $invoiceData = "";
+                $totalAmount = 0;
+                $collectionDayTime = "";
+                $invoiceDate = "";
 
-                foreach ($_SESSION['basketProducts'] as $basketProduct) {
-                    $stmt = $db->conn->prepare($query);
-                    $stmt->execute([$id, $basketProduct->PRODUCT_ID]);
-                    $result = $stmt->fetch();
-                    if ($result) {
-                        // send the email to respective traders.
-                        $total = number_format($result->RATE, 2) * $result->QUANTITY;
-                        $to = $email;
-                        $subject = "New Payment Received";
-                        $message = "<p>New Payment Received!</p>
-                                <p>You have just received a payment for your product.</p>
-                                <ul>
-                                <li>Name: $result->PRODUCT_NAME</li>
-                                <li>Quantity: $result->QUANTITY</li>
-                                <li>Rate: $result->RATE</li>
-                                <li>Total: £$total</li>
-                                </ul>";
-                        $headers = "MIME-Version: 1.0" . "\r\n";
-                        $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
-                        $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";
-                        mail($to, $subject, $message, $headers);
+                $query = "SELECT PRODUCT_NAME, RATE, BP.QUANTITY, T.TRADER_ID FROM TRADERS T, SHOPS S, PRODUCT_CATEGORIES PC, PRODUCTS P, BASKET_PRODUCTS BP, BASKETS B
+                WHERE BP.BASKET_ID = B.BASKET_ID
+                AND BP.PRODUCT_ID = P.PRODUCT_ID
+                AND P.PRODUCT_CATEGORY_ID = PC.PRODUCT_CATEGORY_ID
+                AND PC.SHOP_ID = S.SHOP_ID
+                AND S.TRADER_ID = T.TRADER_ID
+                AND T.TRADER_ID = ?
+                AND B.ACTIVE = 1";
+                $stmt = $db->conn->prepare($query);
+                $stmt->execute([$id]);
+                $results = $stmt->fetchAll();
+                if ($results) {
+                    foreach ($results as $result) {
+                        $total = $result->RATE * $result->QUANTITY;
+                        $invoiceData .= "<tr>
+                                <td>$result->PRODUCT_NAME</td>
+                                <td>£$result->RATE/-</td>
+                                <td>$result->QUANTITY</td>
+                                <td>£$total/-</td>
+                            </tr>";
+                        $totalAmount += $total;
                     }
+
+                    $invoiceData .= "<tr>
+                                <td colspan='5' style='text-align:right; padding:10px;'>
+                                        <strong>Total : </strong>£$totalAmount/-
+                                </td>
+                             </tr>";
                 }
+                // get the email layout
+                require "./email-layouts/traders-invoice-layout.php";
+
+                // send the email to respective traders.
+                $to = $email;
+                $subject = "New Payment Received";
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";
+                mail($to, $subject, $emailMessage, $headers);
             }
 
             // update the basket
@@ -138,7 +149,7 @@ if (isset($_GET['tx'])) {
                     </td>
                  </tr>";
 
-            require_once "./emailLayout.php";
+            require_once "./email-layouts/customers-invoice-layout.php";
 
             // finally send email to the customer
             $to = $_SESSION['user']->EMAIL;
@@ -156,7 +167,6 @@ if (isset($_GET['tx'])) {
             $_SESSION['basketProducts'] = "";
             $_SESSION['paymentStatus'] = "Successful";
             header("location: ./users/customers/customers-dashboard.php");
-
         } catch (PDOException $ex) {
             logErrorToFile($ex);
         }

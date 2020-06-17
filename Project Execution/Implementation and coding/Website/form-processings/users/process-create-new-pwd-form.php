@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // store all the messages in the session
     $_SESSION['invalid'] = $invalid;
-    $_SESSION['valid'] = $valid;c
+    $_SESSION['valid'] = $valid;
 
     // if there are no errors then store the record in the database
     if (empty($_SESSION['invalid'])) {

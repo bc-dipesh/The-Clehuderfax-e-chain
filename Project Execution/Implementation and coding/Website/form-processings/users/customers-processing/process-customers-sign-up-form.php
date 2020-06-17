@@ -121,19 +121,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 VALUES(?, ?, ?, ?, ?, ?, ?)";
         $stmt = $db->conn->prepare($query);
         if ($stmt->execute([$firstName, $lastName, $address, $email, $pass, $phone, $token])) {
+            
+            // get the email layout
+            require_once "../../../email-layouts/customers-sign-up-layout.php";
+
             // send the email
             $to = $email;
             $subject = "Email Verification";
-            $message = "<html><body>
-<p>Dear</p>
-<p>We're glad that you've joined The Clechuderfax E-chain but it seems that you haven't started your shopping yet.</p>
-<p>Click the link below to start shopping by verifying your email</p><br>
-'http://localhost/the-clechuderfax-e-chain/form-processings/users/customers-processing/process-customers-email-verification.php?email=$email&token=$token'
-</body></html>";
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
             $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";
-            mail($to, $subject, $message, $headers);
+            mail($to, $subject, $emailMessage, $headers);
 
             // set the session message
             $_SESSION['msg'] = "Successfully signed up. Please verify your email address by clicking the link sent to your email address.";
