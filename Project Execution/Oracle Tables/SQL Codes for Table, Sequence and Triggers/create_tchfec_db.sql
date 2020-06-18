@@ -488,4 +488,130 @@ BEGIN
 END;
 /
 ------------------------------------------------------------------------------------------------------------
+-- procedures
+create or replace PROCEDURE role_router 
+AS 
+    v_user_type VARCHAR2(6);
+    l_to_page_num NUMBER;
+    l_count NUMBER;
+    l_url VARCHAR2(4000);
+BEGIN 
+    select count(*) into l_count from (select u.user_id, u.email, u.password from users u, traders t
+    where u.user_id = t.user_id
+     and  upper(email) = v('APP_USER'));
+    if l_count = 0
+        then
+            l_to_page_num := 50;
+        else
+            l_to_page_num := 1;
+        end if;
+        l_url := 'f?p=' || v('APP_ID')  ||':'  ||l_to_page_num||  ':' || v('APP_SESSION');
+        APEX_UTIL.SET_SESSION_STATE('FSP_AFTER_LOGIN_URL', l_url); 
+END;
+/
+------------------------------------------------------------------------------------------------------------
+-- functions
+create or replace FUNCTION AUTHENTICATE_USER
+  (p_username in varchar2, 
+   p_password in varchar2)
+return boolean
+is
+  l_email      users.email%type    := upper(p_username);
+  l_password        users.password%type;
+  l_hashed_password varchar2(1000);
+  l_count           number;
+begin
+-- Returns from the AUTHENTICATE_USER function 
+--    0    Normal, successful authentication
+--    1    Unknown Email
+--    2    Account Locked
+--    3    Account Expired
+--    4    Incorrect Password
+--    5    Password First Use
+--    6    Maximum Login Attempts Exceeded
+--    7    Unknown Internal Error
+--
+-- First, check to see if the user exists
+    select count(*) into l_count from (select u.user_id, u.email, u.password from users u, traders t
+    where u.user_id = t.user_id
+     and  upper(email) = l_email
+ union 
+    select u.user_id, u.email, u.password
+    from users u, admins
+    where u.user_id = admins.user_id  and  upper(email) = l_email) 
+;
+      
+     if l_count > 0 then
+          -- Hash the password provided
+          l_hashed_password := hash_password(p_password);
+ 
+          -- Get the stored password
+          select password 
+            into l_password 
+            from users 
+           where upper(email) = l_email;
+  
+          -- Compare the two, and if there is a match, return TRUE
+          if l_hashed_password = l_password then
+              -- Good result. 
+              APEX_UTIL.SET_AUTHENTICATION_RESULT(0);
+              return true;
+          else
+              -- The Passwords didn't match
+              APEX_UTIL.SET_AUTHENTICATION_RESULT(4);
+              return false;
+          end if;
+  
+    else
+          -- The email does not exist
+          APEX_UTIL.SET_AUTHENTICATION_RESULT(1);
+          return false;
+    end if;
+    -- If we get here then something weird happened. 
+    APEX_UTIL.SET_AUTHENTICATION_RESULT(7);
+    return false;
+exception 
+    when others then 
+        -- We don't know what happened so log an unknown internal error
+        APEX_UTIL.SET_AUTHENTICATION_RESULT(7);
+        -- And save the SQL Error Message to the Auth Status.
+        APEX_UTIL.SET_CUSTOM_AUTH_STATUS(sqlerrm);
+        return false;
+        
+end authenticate_user;
+/
 
+create or replace function cast_boolean
+  (v_num  in varchar2)
+return varchar2
+is
+begin
+    --
+    -- The following converts a number to boolean string
+    -- 
+    if v_num >= 1 then
+        return 'true';
+    else
+        return 'false';
+    end if;
+end cast_boolean;
+/
+
+create or replace FUNCTION HASH_PASSWORD
+  (p_password  in varchar2)
+return varchar2
+is
+  l_password varchar2(255);
+begin
+    --
+    -- The following encryptes the password using md5 
+    -- DBMS_CRYPTO.Hash. 
+    -- This is a one-way encryption using MD5
+    -- 
+    l_password := DBMS_CRYPTO.Hash (
+        UTL_I18N.STRING_TO_RAW (p_password, 'AL32UTF8'), 2);
+
+    return lower(l_password);
+end hash_password;
+/
+------------------------------------------------------------------------------------------------------------
