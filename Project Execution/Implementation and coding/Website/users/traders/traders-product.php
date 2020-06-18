@@ -111,7 +111,7 @@ $shops = $stmt->fetch();
                                             <td><img src="../../assets/img/products/<?php echo $product->IMAGE; ?>"
                                                      class="img-thumbnail"></td>
                                             <td><?php echo $product->DESCRIPTION; ?></td>
-                                            <td>$<?php echo $product->RATE; ?></td>
+                                            <td>£<?php echo $product->RATE; ?></td>
                                             <td><?php echo getHumanRepresentation($product->IS_AVAILABLE); ?></td>
                                             <td><?php echo $product->ALLERGY_INFO; ?></td>
                                             <td><?php echo $product->MIN_ORDER; ?></td>

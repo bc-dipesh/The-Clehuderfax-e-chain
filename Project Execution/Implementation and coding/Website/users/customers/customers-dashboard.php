@@ -110,7 +110,7 @@ if (!isset($_SESSION['customer'])) {
                                         <td><img src="../../assets/img/products/<?php echo $product->IMAGE; ?>"
                                                  class="img-thumbnail"></td>
                                         <td><?php echo $product->DESCRIPTION; ?></td>
-                                        <td>$<?php echo $product->RATE; ?></td>
+                                        <td>£<?php echo $product->RATE; ?></td>
                                         <td><?php echo $product->QUANTITY; ?></td>
                                     </tr>
                                 <?php endforeach; ?>

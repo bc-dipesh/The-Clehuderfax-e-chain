@@ -32,18 +32,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = setVerificationToken($db, $token, $user->USER_ID);
 
             if ($result) {
+
+                // get the email layout
+                require_once "../../../email-layouts/customers-reset-pwd-layout.php";
+
                 // send the password reset email
                 $to = $email;
                 $subject = "Password reset request";
-                $message = "
-            We just received your password reset request!
-            You can reset your account password by clicking the link below.
-            'http://localhost/the-clechuderfax-e-chain/form-processings/users/process-pwd-request-verification.php?email=$email&token=$token'
-            ";
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
                 $headers .= "From:noreply@TheClechuderfaxE-chain.com" . "\r\n";
-                mail($to, $subject, $message, $headers);
+                mail($to, $subject, $emailMessage, $headers);
 
                 // set the session message
                 // unset all the sessions
