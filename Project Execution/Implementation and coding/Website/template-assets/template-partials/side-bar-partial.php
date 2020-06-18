@@ -36,6 +36,13 @@
             <span>Products</span></a>
     </li>
 
+    <!-- Add Product - Tables -->
+    <li class="nav-item active">
+        <a class="nav-link" href="./add-products.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Add Products</span></a>
+    </li>
+
     <!-- Nav Item - Back to website -->
     <li class="nav-item active">
         <a class="nav-link" href="../../index.php">
