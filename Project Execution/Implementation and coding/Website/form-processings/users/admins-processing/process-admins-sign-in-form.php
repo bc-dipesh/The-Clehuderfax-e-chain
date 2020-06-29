@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['email']) and isset($_POST['password'])) {
         // clean form data.
         $email = validate($_POST['email']);
-        $password = validate($_POST['password']);
+        $password = md5(validate($_POST['password']));
 
         // get the user from the database.
         $user = getUserWithEmail($db, $email);
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user->USER_ID == $admin->USER_ID) {
 
             // verify the password.
-            if ($password = $user->PASSWORD) {
+            if ($password == $user->PASSWORD) {
                 // if verified set the customer session and grab his/her basket products if there is any
                 // set session data
                 $_SESSION['user'] = $user;
